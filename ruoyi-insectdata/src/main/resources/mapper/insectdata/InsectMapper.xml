@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.insectdata.mapper.InsectMapper">
+    
+    <resultMap type="Insect" id="InsectResult">
+        <result property="insectId"    column="insect_id"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="ancestors"    column="ancestors"    />
+        <result property="insectName"    column="insect_name"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="type"    column="type"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectInsectVo">
+        select insect_id, parent_id, ancestors, insect_name, order_num, type, create_by, create_time, update_by, update_time from insect
+    </sql>
+
+    <select id="selectInsectList" parameterType="Insect" resultMap="InsectResult">
+        <include refid="selectInsectVo"/>
+        <where>  
+            <if test="parentId != null "> and parent_id = #{parentId}</if>
+            <if test="ancestors != null  and ancestors != ''"> and ancestors = #{ancestors}</if>
+            <if test="insectName != null  and insectName != ''"> and insect_name like concat('%', #{insectName}, '%')</if>
+            <if test="orderNum != null "> and order_num = #{orderNum}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+        </where>
+    </select>
+    
+    <select id="selectInsectByInsectId" parameterType="Integer" resultMap="InsectResult">
+        <include refid="selectInsectVo"/>
+        where insect_id = #{insectId}
+    </select>
+        
+    <insert id="insertInsect" parameterType="Insect" useGeneratedKeys="true" keyProperty="insectId">
+        insert into insect
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">parent_id,</if>
+            <if test="ancestors != null">ancestors,</if>
+            <if test="insectName != null and insectName != ''">insect_name,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">#{parentId},</if>
+            <if test="ancestors != null">#{ancestors},</if>
+            <if test="insectName != null and insectName != ''">#{insectName},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInsect" parameterType="Insect">
+        update insect
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="ancestors != null">ancestors = #{ancestors},</if>
+            <if test="insectName != null and insectName != ''">insect_name = #{insectName},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where insect_id = #{insectId}
+    </update>
+
+    <delete id="deleteInsectByInsectId" parameterType="Integer">
+        delete from insect where insect_id = #{insectId}
+    </delete>
+
+    <delete id="deleteInsectByInsectIds" parameterType="String">
+        delete from insect where insect_id in 
+        <foreach item="insectId" collection="array" open="(" separator="," close=")">
+            #{insectId}
+        </foreach>
+    </delete>
+</mapper>

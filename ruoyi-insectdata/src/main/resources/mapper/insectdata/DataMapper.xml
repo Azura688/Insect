@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.insectdata.mapper.DataMapper">
+    
+    <resultMap type="Data" id="DataResult">
+        <result property="dataId"    column="data_id"    />
+        <result property="originalPicture"    column="original_picture"    />
+        <result property="tagPicture"    column="tag_picture"    />
+        <result property="photoTime"    column="photo_time"    />
+        <result property="photoArea"    column="photo_area"    />
+        <result property="equipmentId"    column="equipment_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectDataVo">
+        select data_id, original_picture, tag_picture, photo_time, photo_area, equipment_id, create_by, create_time, update_by, update_time from data
+    </sql>
+
+    <select id="selectDataList" parameterType="Data" resultMap="DataResult">
+        <include refid="selectDataVo"/>
+        <where>  
+            <if test="originalPicture != null  and originalPicture != ''"> and original_picture = #{originalPicture}</if>
+            <if test="tagPicture != null  and tagPicture != ''"> and tag_picture = #{tagPicture}</if>
+            <if test="photoTime != null "> and photo_time = #{photoTime}</if>
+            <if test="photoArea != null  and photoArea != ''"> and photo_area like concat('%', #{photoArea}, '%')</if>
+            <if test="equipmentId != null "> and equipment_id = #{equipmentId}</if>
+        </where>
+    </select>
+    
+    <select id="selectDataByDataId" parameterType="Integer" resultMap="DataResult">
+        <include refid="selectDataVo"/>
+        where data_id = #{dataId}
+    </select>
+        
+    <insert id="insertData" parameterType="Data" useGeneratedKeys="true" keyProperty="dataId">
+        insert into data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="originalPicture != null and originalPicture != ''">original_picture,</if>
+            <if test="tagPicture != null">tag_picture,</if>
+            <if test="photoTime != null">photo_time,</if>
+            <if test="photoArea != null">photo_area,</if>
+            <if test="equipmentId != null">equipment_id,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="originalPicture != null and originalPicture != ''">#{originalPicture},</if>
+            <if test="tagPicture != null">#{tagPicture},</if>
+            <if test="photoTime != null">#{photoTime},</if>
+            <if test="photoArea != null">#{photoArea},</if>
+            <if test="equipmentId != null">#{equipmentId},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateData" parameterType="Data">
+        update data
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="originalPicture != null and originalPicture != ''">original_picture = #{originalPicture},</if>
+            <if test="tagPicture != null">tag_picture = #{tagPicture},</if>
+            <if test="photoTime != null">photo_time = #{photoTime},</if>
+            <if test="photoArea != null">photo_area = #{photoArea},</if>
+            <if test="equipmentId != null">equipment_id = #{equipmentId},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where data_id = #{dataId}
+    </update>
+
+    <delete id="deleteDataByDataId" parameterType="Integer">
+        delete from data where data_id = #{dataId}
+    </delete>
+
+    <delete id="deleteDataByDataIds" parameterType="String">
+        delete from data where data_id in 
+        <foreach item="dataId" collection="array" open="(" separator="," close=")">
+            #{dataId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.insectdata.mapper.InsectImgMapper">
+    
+    <resultMap type="InsectImg" id="InsectImgResult">
+        <result property="insectId"    column="insect_id"    />
+        <result property="img"    column="img"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectInsectImgVo">
+        select insect_id, img, create_by, create_time, update_by, update_time from insect_img
+    </sql>
+
+    <select id="selectInsectImgList" parameterType="InsectImg" resultMap="InsectImgResult">
+        <include refid="selectInsectImgVo"/>
+        <where>  
+            <if test="insectId != null "> and insect_id = #{insectId}</if>
+        </where>
+    </select>
+    
+    <select id="selectInsectImgByInsectId" parameterType="Long" resultMap="InsectImgResult">
+        <include refid="selectInsectImgVo"/>
+        where insect_id = #{insectId}
+    </select>
+        
+    <insert id="insertInsectImg" parameterType="InsectImg">
+        insert into insect_img
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="insectId != null">insect_id,</if>
+            <if test="img != null and img != ''">img,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="insectId != null">#{insectId},</if>
+            <if test="img != null and img != ''">#{img},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInsectImg" parameterType="InsectImg">
+        update insect_img
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="img != null and img != ''">img = #{img},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where insect_id = #{insectId}
+    </update>
+
+    <delete id="deleteInsectImgByInsectId" parameterType="Long">
+        delete from insect_img where insect_id = #{insectId}
+    </delete>
+
+    <delete id="deleteInsectImgByInsectIds" parameterType="String">
+        delete from insect_img where insect_id in 
+        <foreach item="insectId" collection="array" open="(" separator="," close=")">
+            #{insectId}
+        </foreach>
+    </delete>
+</mapper>

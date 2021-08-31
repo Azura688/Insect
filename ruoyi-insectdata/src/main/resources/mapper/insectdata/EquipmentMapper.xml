@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.insectdata.mapper.EquipmentMapper">
+    
+    <resultMap type="Equipment" id="EquipmentResult">
+        <result property="id"    column="id"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="workStatus"    column="work_status"    />
+        <result property="weathershieldStatus"    column="weathershield_status"    />
+        <result property="electricity"    column="electricity"    />
+        <result property="weather"    column="weather"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="county"    column="county"    />
+    </resultMap>
+
+    <sql id="selectEquipmentVo">
+        select id, longitude, latitude, work_status, weathershield_status, electricity, weather, create_by, create_time, update_by, update_time, province, city, county from equipment
+    </sql>
+
+    <select id="selectEquipmentList" parameterType="Equipment" resultMap="EquipmentResult">
+        <include refid="selectEquipmentVo"/>
+        <where>  
+            <if test="longitude != null  and longitude != ''"> and longitude = #{longitude}</if>
+            <if test="latitude != null  and latitude != ''"> and latitude = #{latitude}</if>
+            <if test="workStatus != null  and workStatus != ''"> and work_status = #{workStatus}</if>
+            <if test="weathershieldStatus != null  and weathershieldStatus != ''"> and weathershield_status = #{weathershieldStatus}</if>
+            <if test="electricity != null  and electricity != ''"> and electricity = #{electricity}</if>
+            <if test="weather != null  and weather != ''"> and weather = #{weather}</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="county != null  and county != ''"> and county = #{county}</if>
+        </where>
+    </select>
+    
+    <select id="selectEquipmentById" parameterType="Integer" resultMap="EquipmentResult">
+        <include refid="selectEquipmentVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertEquipment" parameterType="Equipment" useGeneratedKeys="true" keyProperty="id">
+        insert into equipment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="longitude != null">longitude,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="workStatus != null and workStatus != ''">work_status,</if>
+            <if test="weathershieldStatus != null and weathershieldStatus != ''">weathershield_status,</if>
+            <if test="electricity != null and electricity != ''">electricity,</if>
+            <if test="weather != null">weather,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="province != null">province,</if>
+            <if test="city != null">city,</if>
+            <if test="county != null">county,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="longitude != null">#{longitude},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="workStatus != null and workStatus != ''">#{workStatus},</if>
+            <if test="weathershieldStatus != null and weathershieldStatus != ''">#{weathershieldStatus},</if>
+            <if test="electricity != null and electricity != ''">#{electricity},</if>
+            <if test="weather != null">#{weather},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="province != null">#{province},</if>
+            <if test="city != null">#{city},</if>
+            <if test="county != null">#{county},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEquipment" parameterType="Equipment">
+        update equipment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="workStatus != null and workStatus != ''">work_status = #{workStatus},</if>
+            <if test="weathershieldStatus != null and weathershieldStatus != ''">weathershield_status = #{weathershieldStatus},</if>
+            <if test="electricity != null and electricity != ''">electricity = #{electricity},</if>
+            <if test="weather != null">weather = #{weather},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="county != null">county = #{county},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEquipmentById" parameterType="Integer">
+        delete from equipment where id = #{id}
+    </delete>
+
+    <delete id="deleteEquipmentByIds" parameterType="String">
+        delete from equipment where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

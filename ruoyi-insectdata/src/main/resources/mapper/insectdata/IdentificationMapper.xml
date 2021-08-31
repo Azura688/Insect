@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.insectdata.mapper.IdentificationMapper">
+    
+    <resultMap type="Identification" id="IdentificationResult">
+        <result property="dataId"    column="data_id"    />
+        <result property="insectId"    column="insect_id"    />
+        <result property="number"    column="number"    />
+    </resultMap>
+
+    <sql id="selectIdentificationVo">
+        select data_id, insect_id, number from identification
+    </sql>
+
+    <select id="selectIdentificationList" parameterType="Identification" resultMap="IdentificationResult">
+        <include refid="selectIdentificationVo"/>
+        <where>  
+            <if test="dataId != null "> and data_id = #{dataId}</if>
+            <if test="insectId != null "> and insect_id = #{insectId}</if>
+            <if test="number != null "> and number = #{number}</if>
+        </where>
+    </select>
+    
+    <select id="selectIdentificationByDataId" parameterType="Integer" resultMap="IdentificationResult">
+        <include refid="selectIdentificationVo"/>
+        where data_id = #{dataId}
+    </select>
+        
+    <insert id="insertIdentification" parameterType="Identification">
+        insert into identification
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dataId != null">data_id,</if>
+            <if test="insectId != null">insect_id,</if>
+            <if test="number != null">number,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dataId != null">#{dataId},</if>
+            <if test="insectId != null">#{insectId},</if>
+            <if test="number != null">#{number},</if>
+         </trim>
+    </insert>
+
+    <update id="updateIdentification" parameterType="Identification">
+        update identification
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="insectId != null">insect_id = #{insectId},</if>
+            <if test="number != null">number = #{number},</if>
+        </trim>
+        where data_id = #{dataId}
+    </update>
+
+    <delete id="deleteIdentificationByDataId" parameterType="Integer">
+        delete from identification where data_id = #{dataId}
+    </delete>
+
+    <delete id="deleteIdentificationByDataIds" parameterType="String">
+        delete from identification where data_id in 
+        <foreach item="dataId" collection="array" open="(" separator="," close=")">
+            #{dataId}
+        </foreach>
+    </delete>
+</mapper>
