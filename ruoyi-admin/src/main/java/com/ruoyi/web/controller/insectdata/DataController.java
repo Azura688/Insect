@@ -7,7 +7,9 @@ import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.insectdata.domain.Data;
+import com.ruoyi.insectdata.domain.Equipment;
 import com.ruoyi.insectdata.service.IDataService;
+import com.ruoyi.insectdata.service.IEquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,9 @@ public class DataController extends BaseController
 {
     @Autowired
     private IDataService dataService;
+
+    @Autowired
+    private IEquipmentService equipmentService;
 
     /**
      * 查询识别数据列表
@@ -70,6 +75,10 @@ public class DataController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody Data data)
     {
+        Equipment result = equipmentService.selectEquipmentById(data.getEquipmentId());
+        if(result == null){
+            return AjaxResult.error("该设备不存在");
+        }
         return toAjax(dataService.insertData(data));
     }
 

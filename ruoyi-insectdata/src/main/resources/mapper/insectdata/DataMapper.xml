@@ -30,6 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="photoArea != null  and photoArea != ''"> and photo_area like concat('%', #{photoArea}, '%')</if>
             <if test="equipmentId != null "> and equipment_id = #{equipmentId}</if>
         </where>
+        order by photo_time desc
     </select>
     
     <select id="selectDataByDataId" parameterType="Integer" resultMap="DataResult">

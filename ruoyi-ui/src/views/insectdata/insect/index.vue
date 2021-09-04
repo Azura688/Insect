@@ -38,9 +38,13 @@
         />
       </el-form-item>
       <el-form-item label="类别： 0 目 1 科 2 种" prop="type">
-        <el-select v-model="queryParams.type" placeholder="请选择类别： 0 目 1 科 2 种" clearable size="small">
-          <el-option label="请选择字典生成" value="" />
-        </el-select>
+        <el-input
+          v-model="queryParams.type"
+          placeholder="请输入类别： 0 目 1 科 2 种"
+          clearable
+          size="small"
+          @keyup.enter.native="handleQuery"
+        />
       </el-form-item>
       <el-form-item>
 	    <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -114,9 +118,7 @@
           <el-input v-model="form.orderNum" placeholder="请输入显示顺序" />
         </el-form-item>
         <el-form-item label="类别： 0 目 1 科 2 种" prop="type">
-          <el-select v-model="form.type" placeholder="请选择类别： 0 目 1 科 2 种">
-            <el-option label="请选择字典生成" value="" />
-          </el-select>
+          <el-input v-model="form.type" placeholder="请输入类别： 0 目 1 科 2 种" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -167,7 +169,7 @@ export default {
           { required: true, message: "昆虫名称不能为空", trigger: "blur" }
         ],
         type: [
-          { required: true, message: "类别： 0 目 1 科 2 种不能为空", trigger: "change" }
+          { required: true, message: "类别： 0 目 1 科 2 种不能为空", trigger: "blur" }
         ],
       }
     };
