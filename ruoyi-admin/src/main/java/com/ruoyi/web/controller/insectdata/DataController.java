@@ -10,6 +10,8 @@ import com.ruoyi.insectdata.domain.Data;
 import com.ruoyi.insectdata.domain.Equipment;
 import com.ruoyi.insectdata.service.IDataService;
 import com.ruoyi.insectdata.service.IEquipmentService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,7 @@ import java.util.List;
  * @author zmh
  * @date 2021-08-29
  */
+@Api(tags = "数据信息")
 @RestController
 @RequestMapping("/insectdata/data")
 public class DataController extends BaseController
@@ -35,6 +38,7 @@ public class DataController extends BaseController
     /**
      * 查询识别数据列表
      */
+    @ApiOperation("查询数据")
     @PreAuthorize("@ss.hasPermi('insectdata:data:list')")
     @GetMapping("/list")
     public TableDataInfo list(Data data)
@@ -47,6 +51,7 @@ public class DataController extends BaseController
     /**
      * 导出识别数据列表
      */
+    @ApiOperation("导出识别数据列表")
     @PreAuthorize("@ss.hasPermi('insectdata:data:export')")
     @Log(title = "识别数据", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
@@ -60,6 +65,7 @@ public class DataController extends BaseController
     /**
      * 获取识别数据详细信息
      */
+    @ApiOperation("获取识别数据详细信息")
     @PreAuthorize("@ss.hasPermi('insectdata:data:query')")
     @GetMapping(value = "/{dataId}")
     public AjaxResult getInfo(@PathVariable("dataId") Integer dataId)
@@ -70,6 +76,7 @@ public class DataController extends BaseController
     /**
      * 新增识别数据
      */
+    @ApiOperation("新增识别数据")
     @PreAuthorize("@ss.hasPermi('insectdata:data:add')")
     @Log(title = "识别数据", businessType = BusinessType.INSERT)
     @PostMapping
@@ -85,6 +92,7 @@ public class DataController extends BaseController
     /**
      * 修改识别数据
      */
+    @ApiOperation("修改识别数据")
     @PreAuthorize("@ss.hasPermi('insectdata:data:edit')")
     @Log(title = "识别数据", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -96,6 +104,7 @@ public class DataController extends BaseController
     /**
      * 删除识别数据
      */
+    @ApiOperation("删除识别数据")
     @PreAuthorize("@ss.hasPermi('insectdata:data:remove')")
     @Log(title = "识别数据", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{dataIds}")

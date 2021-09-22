@@ -7,6 +7,8 @@ import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.insectdata.domain.Insect;
 import com.ruoyi.insectdata.service.IInsectService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,7 @@ import java.util.List;
  * @author zmh
  * @date 2021-08-29
  */
+@Api(tags = "昆虫信息")
 @RestController
 @RequestMapping("/insectdata/insect")
 public class InsectController extends BaseController
@@ -29,6 +32,7 @@ public class InsectController extends BaseController
     /**
      * 查询昆虫列表
      */
+    @ApiOperation("查询昆虫列表")
     @PreAuthorize("@ss.hasPermi('insectdata:insect:list')")
     @GetMapping("/list")
     public AjaxResult list(Insect insect)
@@ -40,6 +44,7 @@ public class InsectController extends BaseController
     /**
      * 导出昆虫列表
      */
+    @ApiOperation("导出昆虫列表")
     @PreAuthorize("@ss.hasPermi('insectdata:insect:export')")
     @Log(title = "昆虫", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
@@ -53,6 +58,7 @@ public class InsectController extends BaseController
     /**
      * 获取昆虫详细信息
      */
+    @ApiOperation("获取昆虫详细信息")
     @PreAuthorize("@ss.hasPermi('insectdata:insect:query')")
     @GetMapping(value = "/{insectId}")
     public AjaxResult getInfo(@PathVariable("insectId") Integer insectId)
@@ -63,6 +69,7 @@ public class InsectController extends BaseController
     /**
      * 新增昆虫
      */
+    @ApiOperation("新增昆虫")
     @PreAuthorize("@ss.hasPermi('insectdata:insect:add')")
     @Log(title = "昆虫", businessType = BusinessType.INSERT)
     @PostMapping
@@ -74,6 +81,7 @@ public class InsectController extends BaseController
     /**
      * 修改昆虫
      */
+    @ApiOperation("修改昆虫")
     @PreAuthorize("@ss.hasPermi('insectdata:insect:edit')")
     @Log(title = "昆虫", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -85,6 +93,7 @@ public class InsectController extends BaseController
     /**
      * 删除昆虫
      */
+    @ApiOperation("删除昆虫")
     @PreAuthorize("@ss.hasPermi('insectdata:insect:remove')")
     @Log(title = "昆虫", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{insectIds}")

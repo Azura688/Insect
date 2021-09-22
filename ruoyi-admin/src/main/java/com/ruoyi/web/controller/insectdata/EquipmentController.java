@@ -1,6 +1,9 @@
 package com.ruoyi.web.controller.insectdata;
 
 import java.util.List;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +29,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * @author zmh
  * @date 2021-08-31
  */
+@Api(tags = "设备信息")
 @RestController
 @RequestMapping("/insectdata/equipment")
 public class EquipmentController extends BaseController
@@ -36,6 +40,7 @@ public class EquipmentController extends BaseController
     /**
      * 查询设备列表
      */
+    @ApiOperation("查询设备列表")
     @PreAuthorize("@ss.hasPermi('insectdata:equipment:list')")
     @GetMapping("/list")
     public TableDataInfo list(Equipment equipment)
@@ -48,6 +53,7 @@ public class EquipmentController extends BaseController
     /**
      * 导出设备列表
      */
+    @ApiOperation("导出设备列表")
     @PreAuthorize("@ss.hasPermi('insectdata:equipment:export')")
     @Log(title = "设备", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
@@ -61,6 +67,7 @@ public class EquipmentController extends BaseController
     /**
      * 获取设备详细信息
      */
+    @ApiOperation("获取设备详细信息")
     @PreAuthorize("@ss.hasPermi('insectdata:equipment:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Integer id)
@@ -71,6 +78,7 @@ public class EquipmentController extends BaseController
     /**
      * 新增设备
      */
+    @ApiOperation("新增设备")
     @PreAuthorize("@ss.hasPermi('insectdata:equipment:add')")
     @Log(title = "设备", businessType = BusinessType.INSERT)
     @PostMapping
@@ -82,6 +90,7 @@ public class EquipmentController extends BaseController
     /**
      * 修改设备
      */
+    @ApiOperation("修改设备")
     @PreAuthorize("@ss.hasPermi('insectdata:equipment:edit')")
     @Log(title = "设备", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -93,6 +102,7 @@ public class EquipmentController extends BaseController
     /**
      * 删除设备
      */
+    @ApiOperation("删除设备")
     @PreAuthorize("@ss.hasPermi('insectdata:equipment:remove')")
     @Log(title = "设备", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")

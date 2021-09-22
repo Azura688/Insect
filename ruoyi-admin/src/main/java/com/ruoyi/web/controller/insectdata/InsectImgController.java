@@ -8,6 +8,8 @@ import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.insectdata.domain.InsectImg;
 import com.ruoyi.insectdata.service.IInsectImgService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.util.List;
  * @author zmh
  * @date 2021-08-29
  */
+@Api(tags = "昆虫图片信息")
 @RestController
 @RequestMapping("/insectdata/insectImg")
 public class InsectImgController extends BaseController
@@ -30,6 +33,7 @@ public class InsectImgController extends BaseController
     /**
      * 查询昆虫图片列表
      */
+    @ApiOperation("查询昆虫图片列表")
     @PreAuthorize("@ss.hasPermi('insectdata:insectImg:list')")
     @GetMapping("/list")
     public TableDataInfo list(InsectImg insectImg)
@@ -42,6 +46,7 @@ public class InsectImgController extends BaseController
     /**
      * 导出昆虫图片列表
      */
+    @ApiOperation("导出昆虫图片列表")
     @PreAuthorize("@ss.hasPermi('insectdata:insectImg:export')")
     @Log(title = "昆虫图片", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
@@ -55,6 +60,7 @@ public class InsectImgController extends BaseController
     /**
      * 获取昆虫图片详细信息
      */
+    @ApiOperation("获取昆虫图片详细信息")
     @PreAuthorize("@ss.hasPermi('insectdata:insectImg:query')")
     @GetMapping(value = "/{insectId}")
     public AjaxResult getInfo(@PathVariable("insectId") Long insectId)
@@ -65,6 +71,7 @@ public class InsectImgController extends BaseController
     /**
      * 新增昆虫图片
      */
+    @ApiOperation("新增昆虫图片")
     @PreAuthorize("@ss.hasPermi('insectdata:insectImg:add')")
     @Log(title = "昆虫图片", businessType = BusinessType.INSERT)
     @PostMapping
@@ -76,6 +83,7 @@ public class InsectImgController extends BaseController
     /**
      * 修改昆虫图片
      */
+    @ApiOperation("修改昆虫图片")
     @PreAuthorize("@ss.hasPermi('insectdata:insectImg:edit')")
     @Log(title = "昆虫图片", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -87,6 +95,7 @@ public class InsectImgController extends BaseController
     /**
      * 删除昆虫图片
      */
+    @ApiOperation("删除昆虫图片")
     @PreAuthorize("@ss.hasPermi('insectdata:insectImg:remove')")
     @Log(title = "昆虫图片", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{insectIds}")

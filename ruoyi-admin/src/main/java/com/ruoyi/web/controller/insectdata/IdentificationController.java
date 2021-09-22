@@ -8,6 +8,8 @@ import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.insectdata.domain.Identification;
 import com.ruoyi.insectdata.service.IIdentificationService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.util.List;
  * @author zmh
  * @date 2021-08-29
  */
+@Api(tags = "识别结果信息")
 @RestController
 @RequestMapping("/insectdata/identification")
 public class IdentificationController extends BaseController
@@ -30,6 +33,7 @@ public class IdentificationController extends BaseController
     /**
      * 查询识别结果列表
      */
+    @ApiOperation("查询识别结果列表")
     @PreAuthorize("@ss.hasPermi('insectdata:identification:list')")
     @GetMapping("/list")
     public TableDataInfo list(Identification identification)
@@ -42,6 +46,7 @@ public class IdentificationController extends BaseController
     /**
      * 导出识别结果列表
      */
+    @ApiOperation("导出识别结果列表")
     @PreAuthorize("@ss.hasPermi('insectdata:identification:export')")
     @Log(title = "识别结果", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
@@ -55,6 +60,7 @@ public class IdentificationController extends BaseController
     /**
      * 获取识别结果详细信息
      */
+    @ApiOperation("获取识别结果详细信息")
     @PreAuthorize("@ss.hasPermi('insectdata:identification:query')")
     @GetMapping(value = "/{dataId}")
     public AjaxResult getInfo(@PathVariable("dataId") Integer dataId)
@@ -65,6 +71,7 @@ public class IdentificationController extends BaseController
     /**
      * 新增识别结果
      */
+    @ApiOperation("新增识别结果")
     @PreAuthorize("@ss.hasPermi('insectdata:identification:add')")
     @Log(title = "识别结果", businessType = BusinessType.INSERT)
     @PostMapping
@@ -76,6 +83,7 @@ public class IdentificationController extends BaseController
     /**
      * 修改识别结果
      */
+    @ApiOperation("修改识别结果")
     @PreAuthorize("@ss.hasPermi('insectdata:identification:edit')")
     @Log(title = "识别结果", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -87,6 +95,7 @@ public class IdentificationController extends BaseController
     /**
      * 删除识别结果
      */
+    @ApiOperation("删除识别结果")
     @PreAuthorize("@ss.hasPermi('insectdata:identification:remove')")
     @Log(title = "识别结果", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{dataIds}")

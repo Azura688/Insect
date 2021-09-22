@@ -8,6 +8,8 @@ import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.insectdata.domain.Predict;
 import com.ruoyi.insectdata.service.IPredictService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.util.List;
  * @author zmh
  * @date 2021-08-29
  */
+@Api(tags = "预测结果信息")
 @RestController
 @RequestMapping("/insectdata/predict")
 public class PredictController extends BaseController
@@ -30,6 +33,7 @@ public class PredictController extends BaseController
     /**
      * 查询预测结果列表
      */
+    @ApiOperation("查询预测结果列表")
     @PreAuthorize("@ss.hasPermi('insectdata:predict:list')")
     @GetMapping("/list")
     public TableDataInfo list(Predict predict)
@@ -42,6 +46,7 @@ public class PredictController extends BaseController
     /**
      * 导出预测结果列表
      */
+    @ApiOperation("导出预测结果列表")
     @PreAuthorize("@ss.hasPermi('insectdata:predict:export')")
     @Log(title = "预测结果", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
@@ -55,6 +60,7 @@ public class PredictController extends BaseController
     /**
      * 获取预测结果详细信息
      */
+    @ApiOperation("获取预测结果详细信息")
     @PreAuthorize("@ss.hasPermi('insectdata:predict:query')")
     @GetMapping(value = "/{insectId}")
     public AjaxResult getInfo(@PathVariable("insectId") Integer insectId)
@@ -65,6 +71,7 @@ public class PredictController extends BaseController
     /**
      * 新增预测结果
      */
+    @ApiOperation("新增预测结果")
     @PreAuthorize("@ss.hasPermi('insectdata:predict:add')")
     @Log(title = "预测结果", businessType = BusinessType.INSERT)
     @PostMapping
@@ -76,6 +83,7 @@ public class PredictController extends BaseController
     /**
      * 修改预测结果
      */
+    @ApiOperation("修改预测结果")
     @PreAuthorize("@ss.hasPermi('insectdata:predict:edit')")
     @Log(title = "预测结果", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -87,6 +95,7 @@ public class PredictController extends BaseController
     /**
      * 删除预测结果
      */
+    @ApiOperation("删除预测结果")
     @PreAuthorize("@ss.hasPermi('insectdata:predict:remove')")
     @Log(title = "预测结果", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{insectIds}")
