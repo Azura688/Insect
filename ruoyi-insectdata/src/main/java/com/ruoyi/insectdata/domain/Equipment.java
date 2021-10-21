@@ -9,7 +9,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 设备对象 equipment
  * 
  * @author zmh
- * @date 2021-08-31
+ * @date 2021-10-21
  */
 public class Equipment extends BaseEntity
 {
@@ -53,6 +53,10 @@ public class Equipment extends BaseEntity
     /** 县 */
     @Excel(name = "县")
     private String county;
+
+    /** 详细地址 */
+    @Excel(name = "详细地址")
+    private String detail;
 
     public void setId(Integer id) 
     {
@@ -144,6 +148,15 @@ public class Equipment extends BaseEntity
     {
         return county;
     }
+    public void setDetail(String detail) 
+    {
+        this.detail = detail;
+    }
+
+    public String getDetail() 
+    {
+        return detail;
+    }
 
     @Override
     public String toString() {
@@ -162,6 +175,7 @@ public class Equipment extends BaseEntity
             .append("province", getProvince())
             .append("city", getCity())
             .append("county", getCounty())
+            .append("detail", getDetail())
             .toString();
     }
 }

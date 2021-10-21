@@ -12,7 +12,7 @@ import com.ruoyi.insectdata.service.IEquipmentService;
  * 设备Service业务层处理
  * 
  * @author zmh
- * @date 2021-08-31
+ * @date 2021-10-21
  */
 @Service
 public class EquipmentServiceImpl implements IEquipmentService 

@@ -19,10 +19,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="province"    column="province"    />
         <result property="city"    column="city"    />
         <result property="county"    column="county"    />
+        <result property="detail"    column="detail"    />
     </resultMap>
 
     <sql id="selectEquipmentVo">
-        select id, longitude, latitude, work_status, weathershield_status, electricity, weather, create_by, create_time, update_by, update_time, province, city, county from equipment
+        select id, longitude, latitude, work_status, weathershield_status, electricity, weather, create_by, create_time, update_by, update_time, province, city, county, detail from equipment
     </sql>
 
     <select id="selectEquipmentList" parameterType="Equipment" resultMap="EquipmentResult">
@@ -37,6 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="province != null  and province != ''"> and province = #{province}</if>
             <if test="city != null  and city != ''"> and city = #{city}</if>
             <if test="county != null  and county != ''"> and county = #{county}</if>
+            <if test="detail != null  and detail != ''"> and detail = #{detail}</if>
         </where>
     </select>
     
@@ -61,6 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="province != null">province,</if>
             <if test="city != null">city,</if>
             <if test="county != null">county,</if>
+            <if test="detail != null">detail,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="longitude != null">#{longitude},</if>
@@ -76,6 +79,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="province != null">#{province},</if>
             <if test="city != null">#{city},</if>
             <if test="county != null">#{county},</if>
+            <if test="detail != null">#{detail},</if>
          </trim>
     </insert>
 
@@ -95,6 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="province != null">province = #{province},</if>
             <if test="city != null">city = #{city},</if>
             <if test="county != null">county = #{county},</if>
+            <if test="detail != null">detail = #{detail},</if>
         </trim>
         where id = #{id}
     </update>

@@ -27,7 +27,17 @@ public class Identification extends BaseEntity
     @Excel(name = "数量")
     private Integer number;
 
-    public void setDataId(Integer dataId) 
+    private Insect insect;
+
+    public Insect getInsect(){
+        return insect;
+    }
+
+    public void setInsect(Insect insect) {
+        this.insect = insect;
+    }
+
+    public void setDataId(Integer dataId)
     {
         this.dataId = dataId;
     }

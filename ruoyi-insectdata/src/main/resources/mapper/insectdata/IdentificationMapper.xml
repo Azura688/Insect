@@ -10,6 +10,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="number"    column="number"    />
     </resultMap>
 
+    <resultMap type="Identification" id="DataInsectResult">
+        <result property="dataId" column="data_id"/>
+        <!--<result property="insectId"    column="insect_id"    />
+        <result property="insect.insectId"    column="insectid"    />-->
+        <result property="insect.insectName" column="insect_name"/>
+        <result property="number" column="number"/>
+    </resultMap>
+
     <sql id="selectIdentificationVo">
         select data_id, insect_id, number from identification
     </sql>
@@ -26,6 +34,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectIdentificationByDataId" parameterType="Integer" resultMap="IdentificationResult">
         <include refid="selectIdentificationVo"/>
         where data_id = #{dataId}
+    </select>
+
+    <select id="selectIdentificationDetail" parameterType="Integer" resultMap="DataInsectResult">
+        select id.data_id data_id, i.insect_name insect_name, id.number number
+        from insect i, identification id
+        where i.insect_id = id.insect_id and i.type = 2 and id.data_id = #{dataId}
     </select>
         
     <insert id="insertIdentification" parameterType="Identification">

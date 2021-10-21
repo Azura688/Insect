@@ -1,6 +1,7 @@
 package com.ruoyi.insectdata.mapper;
 
 import java.util.List;
+
 import com.ruoyi.insectdata.domain.Identification;
 
 /**
@@ -26,6 +27,14 @@ public interface IdentificationMapper
      * @return 识别结果集合
      */
     public List<Identification> selectIdentificationList(Identification identification);
+
+    /**
+     * 查询指定data的具体昆虫识别结果
+     *
+     * @param dataId
+     * @return
+     */
+    public List<Identification> selectIdentificationDetail (Integer dataId);
 
     /**
      * 新增识别结果

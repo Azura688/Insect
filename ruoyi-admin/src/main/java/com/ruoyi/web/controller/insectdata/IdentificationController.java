@@ -69,6 +69,17 @@ public class IdentificationController extends BaseController
     }
 
     /**
+     *查询指定data的具体昆虫识别结果
+     */
+    @ApiOperation("查询指定data的具体昆虫识别结果")
+    @GetMapping(value = "/detail/{dataID}")
+    public TableDataInfo selectIdentificationDetail(Integer dataId){
+        List<Identification> list = identificationService.selectIdentificationDetail(dataId);
+        return getDataTable(list);
+        //return identificationService.selectIdentificationDetail(dataId);
+    }
+
+    /**
      * 新增识别结果
      */
     @ApiOperation("新增识别结果")
@@ -91,6 +102,11 @@ public class IdentificationController extends BaseController
     {
         return toAjax(identificationService.updateIdentification(identification));
     }
+
+    /*public AjaxResult updataIdentifation(){
+
+
+    }*/
 
     /**
      * 删除识别结果

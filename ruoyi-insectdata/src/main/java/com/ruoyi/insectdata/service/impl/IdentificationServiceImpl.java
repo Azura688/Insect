@@ -1,6 +1,7 @@
 package com.ruoyi.insectdata.service.impl;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.insectdata.mapper.IdentificationMapper;
@@ -41,6 +42,11 @@ public class IdentificationServiceImpl implements IIdentificationService
     public List<Identification> selectIdentificationList(Identification identification)
     {
         return identificationMapper.selectIdentificationList(identification);
+    }
+
+    @Override
+    public List<Identification> selectIdentificationDetail(Integer dataId) {
+        return identificationMapper.selectIdentificationDetail(dataId);
     }
 
     /**

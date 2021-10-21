@@ -7,7 +7,7 @@ import com.ruoyi.insectdata.domain.Equipment;
  * 设备Service接口
  * 
  * @author zmh
- * @date 2021-08-31
+ * @date 2021-10-21
  */
 public interface IEquipmentService 
 {
