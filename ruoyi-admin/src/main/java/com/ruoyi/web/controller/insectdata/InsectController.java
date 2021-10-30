@@ -42,6 +42,18 @@ public class InsectController extends BaseController
     }
 
     /**
+     * 查询昆虫种列表
+     */
+    @ApiOperation("查询昆虫种列表")
+    @PreAuthorize("@ss.hasPermi('insectdata:insect:list')")
+    @GetMapping("/listSpecies")
+    public AjaxResult listSpecies()
+    {
+        List<Insect> list = insectService.selectInsectSpeciesList();
+        return AjaxResult.success(list);
+    }
+
+    /**
      * 导出昆虫列表
      */
     @ApiOperation("导出昆虫列表")

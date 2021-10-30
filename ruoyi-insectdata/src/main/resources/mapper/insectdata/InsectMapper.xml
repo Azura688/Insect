@@ -31,7 +31,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="type != null  and type != ''"> and type = #{type}</if>
         </where>
     </select>
-    
+
+    <select id="selectInsectSpeciesList" resultMap="InsectResult">
+        select * from insect where type = 2
+    </select>
+
     <select id="selectInsectByInsectId" parameterType="Integer" resultMap="InsectResult">
         <include refid="selectInsectVo"/>
         where insect_id = #{insectId}

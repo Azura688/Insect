@@ -1,8 +1,9 @@
 package com.ruoyi.insectdata.mapper;
 
 import java.util.List;
-
+import java.util.Date;
 import com.ruoyi.insectdata.domain.Identification;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 识别结果Mapper接口
@@ -35,6 +36,15 @@ public interface IdentificationMapper
      * @return
      */
     public List<Identification> selectIdentificationDetail (Integer dataId);
+
+    /**
+     * 根据日期查询昆虫数量
+     *
+     * @param
+     * @return 每日对应的昆虫数量
+     */
+    public Integer selectInsectByDate(@Param("start") Date start, @Param("end") Date end, @Param("insectId") Integer insectId);
+
 
     /**
      * 新增识别结果

@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,6 +44,33 @@ public class IdentificationController extends BaseController
         startPage();
         List<Identification> list = identificationService.selectIdentificationList(identification);
         return getDataTable(list);
+    }
+
+    /**
+     * 按日期查询某时间段内某昆虫每天的数量
+     */
+    @ApiOperation("按日期查询某时间段内某昆虫每天的数量")
+    @PreAuthorize("@ss.hasPermi('insectdata:identification:list')")
+    @GetMapping("/listByDatePeriod")
+    public AjaxResult listByDatePeriod(Date start, Date end, Integer insectId) throws ParseException {
+        //整型数组转换成字符串数组
+        String arrString = Arrays.toString(identificationService.selectInsectByDatePeriod(start,end,insectId));
+        return AjaxResult.success(arrString);
+    }
+
+    /**
+     * 按日期查询某天内某昆虫的数量
+     */
+    @ApiOperation("按日期查询某天内某昆虫的数量")
+    @PreAuthorize("@ss.hasPermi('insectdata:identification:list')")
+    @GetMapping("/listByDate")
+    public AjaxResult listByDate(Date date, Integer insectId) throws ParseException {
+        if(identificationService.selectInsectByDate(date,insectId) != null) {
+            return AjaxResult.success(identificationService.selectInsectByDate(date,insectId));
+        }else{
+            return AjaxResult.success(0);
+        }
+
     }
 
     /**

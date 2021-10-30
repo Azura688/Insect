@@ -1,7 +1,8 @@
 package com.ruoyi.insectdata.service;
 
 import java.util.List;
-
+import java.text.ParseException;
+import java.util.Date;
 import com.ruoyi.insectdata.domain.Identification;
 
 /**
@@ -19,6 +20,22 @@ public interface IIdentificationService
      * @return 识别结果
      */
     public Identification selectIdentificationByDataId(Integer dataId);
+
+    /**
+     * 按日期查询某时间段内某昆虫每天的数量
+     *
+     * @param
+     * @return 每日对应的昆虫数量
+     */
+    public int[] selectInsectByDatePeriod(Date start, Date end, Integer insectId) throws ParseException;
+
+    /**
+     * 根据日期查询昆虫数量
+     *
+     * @param
+     * @return 每日对应的昆虫数量
+     */
+    public Integer selectInsectByDate(Date start,Integer insectId)throws ParseException;
 
     /**
      * 查询识别结果列表

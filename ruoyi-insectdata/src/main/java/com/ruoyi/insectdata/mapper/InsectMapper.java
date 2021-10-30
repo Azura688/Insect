@@ -28,6 +28,14 @@ public interface InsectMapper
     public List<Insect> selectInsectList(Insect insect);
 
     /**
+     * 查询昆虫种列表
+     *
+     * @param
+     * @return 昆虫集合
+     */
+    public List<Insect> selectInsectSpeciesList();
+
+    /**
      * 新增昆虫
      * 
      * @param insect 昆虫
