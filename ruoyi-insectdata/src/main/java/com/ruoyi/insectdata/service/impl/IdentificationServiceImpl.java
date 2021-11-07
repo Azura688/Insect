@@ -56,6 +56,7 @@ public class IdentificationServiceImpl implements IIdentificationService
      * @return 每日对应的昆虫数量
      */
     @Override
+    //喵
     public int[] selectInsectByDatePeriod(Date start, Date end, Integer insectId) throws ParseException {
         //处理传入的时间
         Date s = clear(start);
