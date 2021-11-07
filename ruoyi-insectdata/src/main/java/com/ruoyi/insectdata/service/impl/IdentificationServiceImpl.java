@@ -78,15 +78,48 @@ public class IdentificationServiceImpl implements IIdentificationService
         return nums;
     }
 
+//    /**
+//     * 根据日期查询昆虫数量
+//     *
+//     * @param
+//     * @return 每日对应的昆虫数量
+//     */
+//    @Override
+//    public Integer selectInsectByDate(Date date, Integer insectId) throws ParseException {
+//        return identificationMapper.selectInsectByDate(clear(date),theMax(date),insectId);
+//    }
+
     /**
-     * 根据日期查询昆虫数量
+     * 按日期查询某天某昆虫每小时的数量
      *
      * @param
-     * @return 每日对应的昆虫数量
+     * @return 每小时对应的昆虫数量
      */
     @Override
-    public Integer selectInsectByDate(Date date, Integer insectId) throws ParseException {
-        return identificationMapper.selectInsectByDate(clear(date),theMax(date),insectId);
+    public int[] selectInsectByDate(Date date, Integer insectId) throws ParseException {
+        int[] hour = new int[24];
+        Date tmp = clear(date);
+        System.out.println("=================================================================================================================tmp:" + tmp.toString());
+        for(int i = 0 ; i < hour.length ; i++){
+            Date tmp2 = hourMax(tmp);
+//            if(i == hour.length - 1){
+//                if(identificationMapper.selectInsectByDate(tmp,theMax(date),insectId) != null){
+//                    hour[i] = identificationMapper.selectInsectByDate(tmp,theMax(date),insectId);
+//                }else{
+//                    hour[i] = 0;
+//                }
+//            }else{
+//                System.out.println(identificationMapper);
+                   if(identificationMapper.selectInsectByDate(tmp,tmp2,insectId) != null){
+                       hour[i] = identificationMapper.selectInsectByDate(tmp,tmp2,insectId);
+                   }else {
+                       hour[i] = 0;
+                   }
+//                System.out.println("---------------------------------------"+identificationMapper.selectInsectByDate(tmp, tmp2, insectId));
+//            }
+            tmp = hourMin(addHour(tmp2,1));
+        }
+        return hour;
     }
 
     //日期加减指定的天数
@@ -114,7 +147,39 @@ public class IdentificationServiceImpl implements IIdentificationService
         cal1.set(Calendar.MINUTE, 0);
         cal1.set(Calendar.SECOND, 0);
         cal1.set(Calendar.MILLISECOND, 0);
-        return date;
+//        System.out.println("===================================date start: " + cal1.getTime().toString());
+        return cal1.getTime();
+    }
+
+    //将日期加上h小时
+    public static Date addHour(Date date,int h){
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date);
+        cal1.add(Calendar.HOUR_OF_DAY,h);
+        System.out.println("===================================date addHour: " + cal1.getTime().toString());
+        return cal1.getTime();
+    }
+
+    //将日期设为当前小时最大值
+    public static Date hourMax(Date date){
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date);
+        cal1.set(Calendar.MINUTE, 59);
+        cal1.set(Calendar.SECOND, 59);
+        cal1.set(Calendar.MILLISECOND, 999);
+        System.out.println("===================================date addHour: " + cal1.getTime().toString());
+        return cal1.getTime();
+    }
+
+    //将日期设为当前小时最小值
+    public static Date hourMin(Date date){
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date);
+        cal1.set(Calendar.MINUTE, 0);
+        cal1.set(Calendar.SECOND, 0);
+        cal1.set(Calendar.MILLISECOND, 0);
+        System.out.println("===================================date addHour: " + cal1.getTime().toString());
+        return cal1.getTime();
     }
 
     //将时分秒，毫秒域设成最大
@@ -125,7 +190,8 @@ public class IdentificationServiceImpl implements IIdentificationService
         cal1.set(Calendar.MINUTE, 59);
         cal1.set(Calendar.SECOND, 59);
         cal1.set(Calendar.MILLISECOND, 999);
-        return date;
+//        System.out.println("date end: " + cal1.getTime().toString());
+        return cal1.getTime();
     }
 
     public static int daysBetween(Date smdate,Date bdate) throws ParseException//计算两个日期之间的天数

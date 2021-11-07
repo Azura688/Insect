@@ -47,9 +47,9 @@ public class IdentificationController extends BaseController
     }
 
     /**
-     * 按日期查询某时间段内某昆虫每天的数量
+     * 按起止日期查询某时间段内某昆虫每天的数量
      */
-    @ApiOperation("按日期查询某时间段内某昆虫每天的数量")
+    @ApiOperation("按起止日期查询某时间段内某昆虫每天的数量")
     @PreAuthorize("@ss.hasPermi('insectdata:identification:list')")
     @GetMapping("/listByDatePeriod")
     public AjaxResult listByDatePeriod(Date start, Date end, Integer insectId) throws ParseException {
@@ -59,19 +59,32 @@ public class IdentificationController extends BaseController
     }
 
     /**
-     * 按日期查询某天内某昆虫的数量
+     * 按日期查询某天某昆虫每小时的数量
      */
-    @ApiOperation("按日期查询某天内某昆虫的数量")
+    @ApiOperation("按日期查询某天某昆虫每小时的数量")
     @PreAuthorize("@ss.hasPermi('insectdata:identification:list')")
     @GetMapping("/listByDate")
-    public AjaxResult listByDate(Date date, Integer insectId) throws ParseException {
-        if(identificationService.selectInsectByDate(date,insectId) != null) {
-            return AjaxResult.success(identificationService.selectInsectByDate(date,insectId));
-        }else{
-            return AjaxResult.success(0);
-        }
-
+    public AjaxResult listByDate(Date date,Integer insectId) throws ParseException {
+        //整型数组转换成字符串数组
+        String arrString = Arrays.toString(identificationService.selectInsectByDate(date,insectId));
+        return AjaxResult.success(arrString);
     }
+
+//
+//    /**
+//     * 按日期查询某天内某昆虫的数量
+//     */
+//    @ApiOperation("按日期查询某天内某昆虫的数量")
+//    @PreAuthorize("@ss.hasPermi('insectdata:identification:list')")
+//    @GetMapping("/listByDate")
+//    public AjaxResult listByDate(Date date, Integer insectId) throws ParseException {
+//        if(identificationService.selectInsectByDate(date,insectId) != null) {
+//            return AjaxResult.success(identificationService.selectInsectByDate(date,insectId));
+//        }else{
+//            return AjaxResult.success(0);
+//        }
+//
+//    }
 
     /**
      * 导出识别结果列表
