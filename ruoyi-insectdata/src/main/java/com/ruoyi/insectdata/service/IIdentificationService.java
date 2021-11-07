@@ -29,13 +29,21 @@ public interface IIdentificationService
      */
     public int[] selectInsectByDatePeriod(Date start, Date end, Integer insectId) throws ParseException;
 
+//    /**
+//     * 根据日期查询昆虫数量
+//     *
+//     * @param
+//     * @return 每日对应的昆虫数量
+//     */
+//    public Integer selectInsectByDate(Date start,Integer insectId)throws ParseException;
+
     /**
-     * 根据日期查询昆虫数量
+     * 按日期查询某天某昆虫每小时的数量
      *
      * @param
-     * @return 每日对应的昆虫数量
+     * @return 每小时对应的昆虫数量
      */
-    public Integer selectInsectByDate(Date start,Integer insectId)throws ParseException;
+    public int[] selectInsectByDate(Date date, Integer insectId) throws ParseException ;
 
     /**
      * 查询识别结果列表

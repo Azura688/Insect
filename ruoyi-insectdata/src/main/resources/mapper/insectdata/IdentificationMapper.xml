@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectInsectByDate" resultType="Integer">
         <!--        <include refid="selectIdentificationVo"/>-->
-        SELECT `number`
+        SELECT SUM(`number`)
         FROM `data` RIGHT JOIN identification ON identification.data_id = `data`.data_id
         WHERE photo_time BETWEEN #{start} AND #{end} AND insect_id = #{insectId}
     </select>
