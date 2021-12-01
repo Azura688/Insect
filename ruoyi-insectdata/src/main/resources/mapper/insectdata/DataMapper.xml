@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="dataId"    column="data_id"    />
         <result property="originalPicture"    column="original_picture"    />
         <result property="tagPicture"    column="tag_picture"    />
+        <result property="markerBox"    column="marker_box"    />
         <result property="photoTime"    column="photo_time"    />
         <result property="photoArea"    column="photo_area"    />
         <result property="equipmentId"    column="equipment_id"    />
@@ -18,13 +19,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectDataVo">
-        select data_id, original_picture, tag_picture, photo_time, photo_area, equipment_id, create_by, create_time, update_by, update_time from data
+        select data_id, original_picture, marker_box, tag_picture, photo_time, photo_area, equipment_id, create_by, create_time, update_by, update_time from data
     </sql>
 
     <select id="selectDataList" parameterType="Data" resultMap="DataResult">
         <include refid="selectDataVo"/>
         <where>  
             <if test="originalPicture != null  and originalPicture != ''"> and original_picture = #{originalPicture}</if>
+            <if test="markerBox != null  and markerBox != ''"> and marker_box = #{markerBox}</if>
             <if test="tagPicture != null  and tagPicture != ''"> and tag_picture = #{tagPicture}</if>
             <if test="photoTime != null "> and photo_time = #{photoTime}</if>
             <if test="photoArea != null  and photoArea != ''"> and photo_area like concat('%', #{photoArea}, '%')</if>
@@ -42,6 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into data
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="originalPicture != null and originalPicture != ''">original_picture,</if>
+            <if test="markerBox != null">marker_box,</if>
             <if test="tagPicture != null">tag_picture,</if>
             <if test="photoTime != null">photo_time,</if>
             <if test="photoArea != null">photo_area,</if>
@@ -53,6 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="originalPicture != null and originalPicture != ''">#{originalPicture},</if>
+            <if test="markerBox != null">#{markerBox},</if>
             <if test="tagPicture != null">#{tagPicture},</if>
             <if test="photoTime != null">#{photoTime},</if>
             <if test="photoArea != null">#{photoArea},</if>
@@ -68,6 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update data
         <trim prefix="SET" suffixOverrides=",">
             <if test="originalPicture != null and originalPicture != ''">original_picture = #{originalPicture},</if>
+            <if test="markerBox != null">marker_box = #{markerBox},</if>
             <if test="tagPicture != null">tag_picture = #{tagPicture},</if>
             <if test="photoTime != null">photo_time = #{photoTime},</if>
             <if test="photoArea != null">photo_area = #{photoArea},</if>

@@ -8,10 +8,10 @@ import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
- * 识别数据对象 data
+ * 数据对象 data
  * 
  * @author zmh
- * @date 2021-08-29
+ * @date 2021-11-22
  */
 public class Data extends BaseEntity
 {
@@ -23,6 +23,10 @@ public class Data extends BaseEntity
     /** 原始图片 */
     @Excel(name = "原始图片")
     private String originalPicture;
+
+    /** 标记框 */
+    @Excel(name = "标记框")
+    private String markerBox;
 
     /** 标记图片 */
     @Excel(name = "标记图片")
@@ -58,6 +62,15 @@ public class Data extends BaseEntity
     public String getOriginalPicture() 
     {
         return originalPicture;
+    }
+    public void setMarkerBox(String markerBox) 
+    {
+        this.markerBox = markerBox;
+    }
+
+    public String getMarkerBox() 
+    {
+        return markerBox;
     }
     public void setTagPicture(String tagPicture) 
     {
@@ -101,6 +114,7 @@ public class Data extends BaseEntity
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("dataId", getDataId())
             .append("originalPicture", getOriginalPicture())
+            .append("markerBox", getMarkerBox())
             .append("tagPicture", getTagPicture())
             .append("photoTime", getPhotoTime())
             .append("photoArea", getPhotoArea())
