@@ -52,6 +52,18 @@ public class SysUser extends BaseEntity
     @Excel(name = "用户性别", readConverterExp = "0=男,1=女,2=未知")
     private String sex;
 
+    /** 身份证号*/
+    private  String idnumber;
+
+    /** 单位名称*/
+    private  String unitName;
+
+    /** 单位地址*/
+    private  String unitAddress;
+
+    /** 邮编*/
+    private  String postcode;
+
     /** 用户头像 */
     private String avatar;
 
@@ -191,6 +203,39 @@ public class SysUser extends BaseEntity
         this.sex = sex;
     }
 
+    @Size(min = 0, max = 18, message = "身份证号长度不能超过18个字符")
+    public String getIdnumber() {
+        return idnumber;
+    }
+
+    public void setIdnumber(String idnumber) {
+        this.idnumber = idnumber;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
+    }
+
+    public String getUnitAddress() {
+        return unitAddress;
+    }
+
+    public void setUnitAddress(String unitAddress) {
+        this.unitAddress = unitAddress;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
     public String getAvatar()
     {
         return avatar;
@@ -323,6 +368,10 @@ public class SysUser extends BaseEntity
             .append("email", getEmail())
             .append("phonenumber", getPhonenumber())
             .append("sex", getSex())
+            .append("idnumber", getIdnumber())
+            .append("unitName", getUnitName())
+            .append("unitAddress",getUnitAddress())
+            .append("postcode",getPostcode())
             .append("avatar", getAvatar())
             .append("password", getPassword())
             .append("salt", getSalt())

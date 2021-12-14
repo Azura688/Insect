@@ -2,6 +2,9 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,6 +38,7 @@ import com.ruoyi.system.service.ISysUserService;
  * 
  * @author ruoyi
  */
+@Api(tags = "用户管理")
 @RestController
 @RequestMapping("/system/user")
 public class SysUserController extends BaseController
@@ -51,6 +55,7 @@ public class SysUserController extends BaseController
     /**
      * 获取用户列表
      */
+    @ApiOperation("获取用户列表")
     @PreAuthorize("@ss.hasPermi('system:user:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysUser user)
@@ -60,6 +65,7 @@ public class SysUserController extends BaseController
         return getDataTable(list);
     }
 
+    @ApiOperation("导出用户列表")
     @Log(title = "用户管理", businessType = BusinessType.EXPORT)
     @PreAuthorize("@ss.hasPermi('system:user:export')")
     @GetMapping("/export")
@@ -92,6 +98,7 @@ public class SysUserController extends BaseController
     /**
      * 根据用户编号获取详细信息
      */
+    @ApiOperation("根据用户编号获取详细信息")
     @PreAuthorize("@ss.hasPermi('system:user:query')")
     @GetMapping(value = { "/", "/{userId}" })
     public AjaxResult getInfo(@PathVariable(value = "userId", required = false) Long userId)
@@ -113,6 +120,7 @@ public class SysUserController extends BaseController
     /**
      * 新增用户
      */
+    @ApiOperation("新增用户")
     @PreAuthorize("@ss.hasPermi('system:user:add')")
     @Log(title = "用户管理", businessType = BusinessType.INSERT)
     @PostMapping
@@ -140,6 +148,7 @@ public class SysUserController extends BaseController
     /**
      * 修改用户
      */
+    @ApiOperation("修改用户")
     @PreAuthorize("@ss.hasPermi('system:user:edit')")
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -163,6 +172,7 @@ public class SysUserController extends BaseController
     /**
      * 删除用户
      */
+    @ApiOperation("删除用户")
     @PreAuthorize("@ss.hasPermi('system:user:remove')")
     @Log(title = "用户管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{userIds}")
@@ -178,6 +188,7 @@ public class SysUserController extends BaseController
     /**
      * 重置密码
      */
+    @ApiOperation("重置用户密码")
     @PreAuthorize("@ss.hasPermi('system:user:resetPwd')")
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/resetPwd")
@@ -192,6 +203,7 @@ public class SysUserController extends BaseController
     /**
      * 状态修改
      */
+    @ApiOperation("状态修改")
     @PreAuthorize("@ss.hasPermi('system:user:edit')")
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
@@ -205,6 +217,7 @@ public class SysUserController extends BaseController
     /**
      * 根据用户编号获取授权角色
      */
+    @ApiOperation("根据用户编号获取授权角色")
     @PreAuthorize("@ss.hasPermi('system:user:query')")
     @GetMapping("/authRole/{userId}")
     public AjaxResult authRole(@PathVariable("userId") Long userId)
@@ -220,6 +233,7 @@ public class SysUserController extends BaseController
     /**
      * 用户授权角色
      */
+    @ApiOperation("用户授权角色")
     @PreAuthorize("@ss.hasPermi('system:user:edit')")
     @Log(title = "用户管理", businessType = BusinessType.GRANT)
     @PutMapping("/authRole")

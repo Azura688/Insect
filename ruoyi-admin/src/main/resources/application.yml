@@ -19,8 +19,8 @@ ruoyi:
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为8080
-#  port: 49999
-  port: 8080
+  port: 49999
+  #port: 8080
   servlet:
     # 应用的访问路径
     context-path: /
@@ -67,8 +67,8 @@ spring:
     # 数据库索引
     database: 0
     # 密码
-    password: 123456
-#    password: hzau123
+    #password: 123456
+    password: hzau123
     # 连接超时时间
     timeout: 10s
     lettuce:

@@ -1,6 +1,11 @@
 package com.ruoyi.web.controller.system;
 
 import java.io.IOException;
+import java.util.List;
+
+import com.ruoyi.system.mapper.SysUserMapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +34,7 @@ import com.ruoyi.system.service.ISysUserService;
  * 
  * @author ruoyi
  */
+@Api(tags = "管理当前登录个人信息")
 @RestController
 @RequestMapping("/system/user/profile")
 public class SysProfileController extends BaseController
@@ -39,9 +45,19 @@ public class SysProfileController extends BaseController
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private SysUserMapper sysUserMapper;
+
+    @ApiOperation("test")
+    @GetMapping("/test")
+    public List<SysUser> test(SysUser sysUser){
+        return sysUserMapper.selectUserList(sysUser);
+    }
+
     /**
      * 个人信息
      */
+    @ApiOperation("个人信息")
     @GetMapping
     public AjaxResult profile()
     {
@@ -56,6 +72,7 @@ public class SysProfileController extends BaseController
     /**
      * 修改用户
      */
+    @ApiOperation("修改用户")
     @Log(title = "个人信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult updateProfile(@RequestBody SysUser user)
@@ -70,6 +87,11 @@ public class SysProfileController extends BaseController
         {
             return AjaxResult.error("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
+        if (StringUtils.isNotEmpty(user.getIdnumber())
+                && UserConstants.NOT_UNIQUE.equals(userService.checkIdnumberUnique(user)))
+        {
+            return AjaxResult.error("修改用户'" + user.getUserName() + "'失败，身份证号已存在");
+        }
         LoginUser loginUser = getLoginUser();
         SysUser sysUser = loginUser.getUser();
         user.setUserId(sysUser.getUserId());
@@ -81,6 +103,10 @@ public class SysProfileController extends BaseController
             sysUser.setPhonenumber(user.getPhonenumber());
             sysUser.setEmail(user.getEmail());
             sysUser.setSex(user.getSex());
+            sysUser.setIdnumber(user.getIdnumber());
+            sysUser.setUnitName(user.getUnitName());
+            sysUser.setUnitAddress(user.getUnitAddress());
+            sysUser.setPostcode(user.getPostcode());
             tokenService.setLoginUser(loginUser);
             return AjaxResult.success();
         }
@@ -90,6 +116,7 @@ public class SysProfileController extends BaseController
     /**
      * 重置密码
      */
+    @ApiOperation("重置密码")
     @Log(title = "个人信息", businessType = BusinessType.UPDATE)
     @PutMapping("/updatePwd")
     public AjaxResult updatePwd(String oldPassword, String newPassword)
@@ -118,6 +145,7 @@ public class SysProfileController extends BaseController
     /**
      * 头像上传
      */
+    @ApiOperation("头像上传")
     @Log(title = "用户头像", businessType = BusinessType.UPDATE)
     @PostMapping("/avatar")
     public AjaxResult avatar(@RequestParam("avatarfile") MultipartFile file) throws IOException
