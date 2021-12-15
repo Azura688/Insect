@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.insectdata.mapper.IdentificationMapper">
-    
+
     <resultMap type="Identification" id="IdentificationResult">
         <result property="dataId"    column="data_id"    />
         <result property="insectId"    column="insect_id"    />
@@ -12,8 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <resultMap type="Identification" id="DataInsectResult">
         <result property="dataId" column="data_id"/>
-        <!--<result property="insectId"    column="insect_id"    />
-        <result property="insect.insectId"    column="insectid"    />-->
+        <result property="insect.insectId"    column="insect_id"    />
+        <result property="insect.parentId"    column="parent_id"    />
         <result property="insect.insectName" column="insect_name"/>
         <result property="number" column="number"/>
     </resultMap>
@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectIdentificationList" parameterType="Identification" resultMap="IdentificationResult">
         <include refid="selectIdentificationVo"/>
-        <where>  
+        <where>
             <if test="dataId != null "> and data_id = #{dataId}</if>
             <if test="insectId != null "> and insect_id = #{insectId}</if>
             <if test="number != null "> and number = #{number}</if>
@@ -44,23 +44,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="selectIdentificationDetail" parameterType="Integer" resultMap="DataInsectResult">
-        select id.data_id data_id, i.insect_name insect_name, id.number number
+        select id.data_id data_id, i.insect_name insect_name, id.number number, i.insect_id insect_id, i.parent_id parent_id
         from insect i, identification id
         where i.insect_id = id.insect_id and i.type = 2 and id.data_id = #{dataId}
     </select>
-        
+
     <insert id="insertIdentification" parameterType="Identification">
         insert into identification
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="dataId != null">data_id,</if>
             <if test="insectId != null">insect_id,</if>
             <if test="number != null">number,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="dataId != null">#{dataId},</if>
             <if test="insectId != null">#{insectId},</if>
             <if test="number != null">#{number},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateIdentification" parameterType="Identification">
@@ -77,7 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteIdentificationByDataIds" parameterType="String">
-        delete from identification where data_id in 
+        delete from identification where data_id in
         <foreach item="dataId" collection="array" open="(" separator="," close=")">
             #{dataId}
         </foreach>
