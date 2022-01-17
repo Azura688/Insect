@@ -77,4 +77,15 @@ public interface IdentificationMapper
      * @return 结果
      */
     public int deleteIdentificationByDataIds(Integer[] dataIds);
+
+    /**
+     * 删除识别结果信息
+     *
+     * @param dataId 识别结果主键
+     * @param insectId
+     * @return 结果
+     */
+    public int deleteIdentificationByDataIdAndInsectId(@Param("dataId") Integer dataId, @Param("insectId") Integer insectId);
+
+
 }

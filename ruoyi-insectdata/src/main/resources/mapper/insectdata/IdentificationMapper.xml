@@ -66,10 +66,10 @@
     <update id="updateIdentification" parameterType="Identification">
         update identification
         <trim prefix="SET" suffixOverrides=",">
-            <if test="insectId != null">insect_id = #{insectId},</if>
+            <!--<if test="insectId != null">insect_id = #{insectId},</if>-->
             <if test="number != null">number = #{number},</if>
         </trim>
-        where data_id = #{dataId}
+        where data_id = #{dataId} and insect_id = #{insectId}
     </update>
 
     <delete id="deleteIdentificationByDataId" parameterType="Integer">
@@ -82,4 +82,10 @@
             #{dataId}
         </foreach>
     </delete>
+
+    <delete id="deleteIdentificationByDataIdAndInsectId" parameterType="Integer">
+        delete from identification
+        where data_id = #{dataId} and insect_id = #{insectId}
+    </delete>
+
 </mapper>

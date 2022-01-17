@@ -10,6 +10,7 @@ import com.ruoyi.insectdata.domain.Identification;
 import com.ruoyi.insectdata.service.IIdentificationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -115,7 +116,7 @@ public class IdentificationController extends BaseController
      *查询指定data的具体昆虫识别结果
      */
     @ApiOperation("查询指定data的具体昆虫识别结果")
-    @GetMapping(value = "/detail/{dataID}")
+    @GetMapping(value = "/detail/{dataId}")
     public TableDataInfo selectIdentificationDetail(Integer dataId){
         List<Identification> list = identificationService.selectIdentificationDetail(dataId);
         return getDataTable(list);
@@ -129,7 +130,7 @@ public class IdentificationController extends BaseController
     @PreAuthorize("@ss.hasPermi('insectdata:identification:add')")
     @Log(title = "识别结果", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody Identification identification)
+    public AjaxResult add(Identification identification)
     {
         return toAjax(identificationService.insertIdentification(identification));
     }
@@ -146,20 +147,28 @@ public class IdentificationController extends BaseController
         return toAjax(identificationService.updateIdentification(identification));
     }
 
-    /*public AjaxResult updataIdentifation(){
-
-
-    }*/
 
     /**
-     * 删除识别结果
+     * 删除指定data的所有识别结果
      */
-    @ApiOperation("删除识别结果")
+    @ApiOperation("删除指定data的所有识别结果")
     @PreAuthorize("@ss.hasPermi('insectdata:identification:remove')")
     @Log(title = "识别结果", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{dataIds}")
     public AjaxResult remove(@PathVariable Integer[] dataIds)
     {
         return toAjax(identificationService.deleteIdentificationByDataIds(dataIds));
+    }
+
+    /**
+     * 删除data指定昆虫id的识别结果
+     */
+    @ApiOperation("删除data指定昆虫id的识别结果")
+    @PreAuthorize("@ss.hasPermi('insectdata:identification:remove')")
+    @Log(title = "识别结果", businessType = BusinessType.DELETE)
+    @DeleteMapping("/delete/{dataId}&{insectId}")
+    public AjaxResult delete(@RequestParam("dataId") Integer dataId, @RequestParam("insectId") Integer insectId)
+    {
+        return toAjax(identificationService.deleteIdentificationByDataIdAndInsectId(dataId,insectId));
     }
 }

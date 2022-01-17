@@ -261,4 +261,9 @@ public class IdentificationServiceImpl implements IIdentificationService
     {
         return identificationMapper.deleteIdentificationByDataId(dataId);
     }
+
+    @Override
+    public int deleteIdentificationByDataIdAndInsectId(Integer dataId, Integer insectId) {
+        return identificationMapper.deleteIdentificationByDataIdAndInsectId(dataId,insectId);
+    }
 }

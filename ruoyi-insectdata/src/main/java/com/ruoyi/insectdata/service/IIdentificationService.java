@@ -92,4 +92,13 @@ public interface IIdentificationService
      * @return 结果
      */
     public int deleteIdentificationByDataId(Integer dataId);
+
+    /**
+     * 删除识别结果信息
+     *
+     * @param dataId 识别结果主键
+     * @param insectId
+     * @return 结果
+     */
+    public int deleteIdentificationByDataIdAndInsectId(Integer dataId, Integer insectId);
 }

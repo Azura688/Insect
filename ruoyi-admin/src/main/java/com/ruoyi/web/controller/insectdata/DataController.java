@@ -10,6 +10,7 @@ import com.ruoyi.insectdata.domain.Data;
 import com.ruoyi.insectdata.domain.Equipment;
 import com.ruoyi.insectdata.service.IDataService;
 import com.ruoyi.insectdata.service.IEquipmentService;
+import com.ruoyi.insectdata.service.IIdentificationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class DataController extends BaseController
 
     @Autowired
     private IEquipmentService equipmentService;
+
+    @Autowired
+    private IIdentificationService identificationService;
 
     /**
      * 查询识别数据列表
@@ -110,6 +114,7 @@ public class DataController extends BaseController
 	@DeleteMapping("/{dataIds}")
     public AjaxResult remove(@PathVariable Integer[] dataIds)
     {
+        identificationService.deleteIdentificationByDataIds(dataIds);
         return toAjax(dataService.deleteDataByDataIds(dataIds));
     }
 }
