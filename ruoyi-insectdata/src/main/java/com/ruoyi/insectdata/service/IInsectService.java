@@ -66,4 +66,12 @@ public interface IInsectService
      * @return 结果
      */
     public int deleteInsectByInsectId(Integer insectId);
+
+    /**
+     * 是否存在昆虫子节点
+     *
+     * @param insectId 昆虫ID
+     * @return 结果
+     */
+    public boolean hasChildByInsectId(Integer insectId);
 }

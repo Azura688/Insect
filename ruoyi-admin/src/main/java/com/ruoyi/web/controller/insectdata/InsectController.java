@@ -108,9 +108,12 @@ public class InsectController extends BaseController
     @ApiOperation("删除昆虫")
     @PreAuthorize("@ss.hasPermi('insectdata:insect:remove')")
     @Log(title = "昆虫", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{insectIds}")
-    public AjaxResult remove(@PathVariable Integer[] insectIds)
+	@DeleteMapping("/{insectId}")
+    public AjaxResult remove(@PathVariable Integer insectId)
     {
-        return toAjax(insectService.deleteInsectByInsectIds(insectIds));
+        if (insectService.hasChildByInsectId(insectId)){
+            return AjaxResult.error("存在下级昆虫,不允许删除");
+        }
+        return toAjax(insectService.deleteInsectByInsectId(insectId));
     }
 }

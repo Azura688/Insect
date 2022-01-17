@@ -93,4 +93,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{insectId}
         </foreach>
     </delete>
+
+    <select id="hasChildByInsectId" parameterType="Integer" resultType="int">
+		select count(1) from insect
+		where parent_id = #{insectId} limit 1
+	</select>
 </mapper>

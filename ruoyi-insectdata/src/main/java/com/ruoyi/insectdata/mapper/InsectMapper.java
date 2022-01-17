@@ -66,4 +66,12 @@ public interface InsectMapper
      * @return 结果
      */
     public int deleteInsectByInsectIds(Integer[] insectIds);
+
+    /**
+     * 是否存在子节点
+     *
+     * @param insectId 昆虫ID
+     * @return 结果
+     */
+    public int hasChildByInsectId(Integer insectId);
 }

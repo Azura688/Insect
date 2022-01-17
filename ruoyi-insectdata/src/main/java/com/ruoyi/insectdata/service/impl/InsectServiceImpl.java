@@ -104,4 +104,16 @@ public class InsectServiceImpl implements IInsectService
     {
         return insectMapper.deleteInsectByInsectId(insectId);
     }
+
+    /**
+     * 是否存在昆虫子节点
+     *
+     * @param insectId 昆虫ID
+     * @return 结果
+     */
+    @Override
+    public boolean hasChildByInsectId(Integer insectId) {
+        int result = insectMapper.hasChildByInsectId(insectId);
+        return result > 0 ? true : false;
+    }
 }
