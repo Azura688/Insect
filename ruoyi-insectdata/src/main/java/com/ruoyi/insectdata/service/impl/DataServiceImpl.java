@@ -1,5 +1,6 @@
 package com.ruoyi.insectdata.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,5 +93,42 @@ public class DataServiceImpl implements IDataService
     public int deleteDataByDataId(Integer dataId)
     {
         return dataMapper.deleteDataByDataId(dataId);
+    }
+
+    /**
+     * 根据用户地区查询相同地区设备的识别数据
+     *
+     * @param address 用户地区
+     * @return 结果
+     */
+    @Override
+    public List<Data> selectDataByUserAddress(String address) {
+        String[] add = address.split("-");
+        String province = add[0];
+        String city = add[1];
+        String county = add[2];
+
+        System.out.println(province +"-"+ city +"-"+ county);
+
+        return dataMapper.selectDataByAddress(province,city,county);
+    }
+
+    /**
+     * 根据用户地区和时间查询识别数据
+     *
+     * @param address 用户地区
+     * @param photoTime 拍摄时间
+     * @return 结果
+     */
+    @Override
+    public List<Data> selectDataByUserAddressAndTime(String address, Date photoTime) {
+        String[] add = address.split("-");
+        String province = add[0];
+        String city = add[1];
+        String county = add[2];
+
+        System.out.println(province +"-"+ city +"-"+ county +"-"+ photoTime);
+
+        return dataMapper.selectDataByAddressAndTime(province,city,county,photoTime);
     }
 }

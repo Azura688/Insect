@@ -1,5 +1,6 @@
 package com.ruoyi.insectdata.service;
 
+import java.util.Date;
 import java.util.List;
 import com.ruoyi.insectdata.domain.Data;
 
@@ -58,4 +59,21 @@ public interface IDataService
      * @return 结果
      */
     public int deleteDataByDataId(Integer dataId);
+
+    /**
+     * 根据用户地区查询相同地区设备的识别数据
+     *
+     * @param address 用户地区
+     * @return 结果
+     */
+    public List<Data> selectDataByUserAddress(String address);
+
+    /**
+     * 根据用户地区和时间查询识别数据
+     *
+     * @param address 用户地区
+     * @param photoTime 拍摄时间
+     * @return 结果
+     */
+    public List<Data> selectDataByUserAddressAndTime(String address, Date photoTime);
 }

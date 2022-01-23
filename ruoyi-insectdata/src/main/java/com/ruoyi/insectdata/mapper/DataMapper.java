@@ -1,7 +1,10 @@
 package com.ruoyi.insectdata.mapper;
 
+import java.util.Date;
 import java.util.List;
 import com.ruoyi.insectdata.domain.Data;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 
 /**
  * 识别数据Mapper接口
@@ -58,4 +61,27 @@ public interface DataMapper
      * @return 结果
      */
     public int deleteDataByDataIds(Integer[] dataIds);
+
+    /**
+     * 根据用户地区查询相同地区设备的识别数据
+     *
+     * @param province 用户地址-省
+     * @param city 用户地址-市
+     * @param county 用户地址-区
+     * @return 结果
+     */
+    public List<Data> selectDataByAddress(@Param("province")String province, @Param("city")String city, @Param("county")String county);
+
+    /**
+     * 根据用户地区查询相同地区设备的识别数据
+     *
+     * @param province 用户地址-省
+     * @param city 用户地址-市
+     * @param county 用户地址-区
+     * @param photoTime 拍摄时间
+     * @return 结果
+     */
+    public List<Data> selectDataByAddressAndTime(@Param("province")String province, @Param("city")String city, @Param("county")String county, @Param("photoTime")Date photoTime);
+
+
 }

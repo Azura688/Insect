@@ -95,4 +95,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{dataId}
         </foreach>
     </delete>
+
+    <select id="selectDataByAddress" resultMap="DataResult">
+        select data_id, original_picture, marker_box, tag_picture, photo_time, photo_area, equipment_id, d.create_by create_by, d.create_time create_time, d.update_by update_by, d.update_time update_time
+        from data d, equipment e
+        where d.equipment_id = e.id and e.province = #{province} and e.city = #{city} and e.county = #{county}
+    </select>
+
+    <select id="selectDataByAddressAndTime" resultMap="DataResult">
+        select data_id, original_picture, marker_box, tag_picture, photo_time, photo_area, equipment_id, d.create_by create_by, d.create_time create_time, d.update_by update_by, d.update_time update_time
+        from data d, equipment e
+        where d.equipment_id = e.id and d.photo_time = #{photoTime} and e.province = #{province} and e.city = #{city} and e.county = #{county}
+    </select>
+
 </mapper>

@@ -13,10 +13,12 @@ import com.ruoyi.insectdata.service.IEquipmentService;
 import com.ruoyi.insectdata.service.IIdentificationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.hibernate.hql.spi.id.TableBasedDeleteHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -117,4 +119,27 @@ public class DataController extends BaseController
         identificationService.deleteIdentificationByDataIds(dataIds);
         return toAjax(dataService.deleteDataByDataIds(dataIds));
     }
+
+    /**
+     * 根据用户地区查询相同地区设备的识别数据
+     */
+    @ApiOperation("根据用户地区查询相同地区设备的识别数据")
+    @GetMapping("/listByAddress")
+    public TableDataInfo listByAddress(String address){
+        startPage();
+        List<Data> list = dataService.selectDataByUserAddress(address);
+        return getDataTable(list);
+    }
+
+    /**
+     * 根据用户地区和时间查询识别数据
+     */
+    @ApiOperation("根据用户地区和时间查询识别数据")
+    @GetMapping("/listByAddressAndTime")
+    public TableDataInfo listByAddressAndTime(String address, Date photoTime){
+        startPage();
+        List<Data> list = dataService.selectDataByUserAddressAndTime(address, photoTime);
+        return getDataTable(list);
+    }
+
 }
