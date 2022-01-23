@@ -36,6 +36,14 @@ public interface InsectImgMapper
     public int insertInsectImg(InsectImg insectImg);
 
     /**
+     * 批量新增昆虫图片
+     *
+     * @param insectImgList 昆虫图片列表
+     * @return 结果
+     */
+    public int batchInsertImg(List<InsectImg> insectImgList);
+
+    /**
      * 修改昆虫图片
      * 
      * @param insectImg 昆虫图片

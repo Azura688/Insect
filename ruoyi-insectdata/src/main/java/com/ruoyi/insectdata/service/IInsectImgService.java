@@ -36,6 +36,15 @@ public interface IInsectImgService
     public int insertInsectImg(InsectImg insectImg);
 
     /**
+     * 批量新增昆虫图片
+     *
+     * @param insectId 昆虫id
+     * @param imgs 昆虫图片列表
+     * @return 结果
+     */
+    public int batchInsertImg(Long insectId, String[] imgs);
+
+    /**
      * 修改昆虫图片
      * 
      * @param insectImg 昆虫图片

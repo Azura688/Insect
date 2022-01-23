@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -75,10 +76,39 @@ public class InsectImgController extends BaseController
     @PreAuthorize("@ss.hasPermi('insectdata:insectImg:add')")
     @Log(title = "昆虫图片", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody InsectImg insectImg)
+    public AjaxResult add(InsectImg insectImg)
     {
         return toAjax(insectImgService.insertInsectImg(insectImg));
     }
+
+    /**
+     * 批量新增昆虫图片
+     *
+     * @param imgs 昆虫图片列表
+     * @return 结果
+     */
+    @ApiOperation("批量新增昆虫图片")
+    @PostMapping("/batchInsertImg")
+    public AjaxResult batchInsertImg(Long insectId, String[] imgs){
+        return toAjax(insectImgService.batchInsertImg(insectId,imgs));
+    }
+
+    /**
+     * 批量添加昆虫图片
+     * @param files
+     * @return
+     */
+    /*@PostMapping("/upload")
+    @ResponseBody
+    public AjaxResult addFile(@RequestParam("files") MultipartFile[] files) {
+
+        for(MultipartFile fileData : files) {
+            // 上传
+            //sysBusinessService.doUploadReturnContract(fileData);
+        }
+        return AjaxResult.success("上传成功！");
+
+    }*/
 
     /**
      * 修改昆虫图片

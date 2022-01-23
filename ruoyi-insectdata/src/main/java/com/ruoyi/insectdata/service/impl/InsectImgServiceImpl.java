@@ -1,7 +1,9 @@
 package com.ruoyi.insectdata.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.insectdata.domain.Insect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.insectdata.mapper.InsectImgMapper;
@@ -55,6 +57,31 @@ public class InsectImgServiceImpl implements IInsectImgService
     {
         insectImg.setCreateTime(DateUtils.getNowDate());
         return insectImgMapper.insertInsectImg(insectImg);
+    }
+
+    /**
+     * 批量新增昆虫图片
+     *
+     * @param insectId 昆虫id
+     * @param imgs 昆虫图片列表
+     * @return 结果
+     */
+    @Override
+    public int batchInsertImg(Long insectId, String[] imgs) {
+        List<InsectImg> list = new ArrayList<InsectImg>();
+        for (String img : imgs){
+            InsectImg insectImg = new InsectImg();
+            insectImg.setInsectId(insectId);
+            insectImg.setImg(img);
+            insectImg.setCreateTime(DateUtils.getNowDate());
+            list.add(insectImg);
+        }
+        if(list.size() > 0){
+            return insectImgMapper.batchInsertImg(list);
+        }else {
+            return 0;
+        }
+
     }
 
     /**
