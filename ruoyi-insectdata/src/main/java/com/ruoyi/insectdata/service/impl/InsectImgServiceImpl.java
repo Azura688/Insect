@@ -100,13 +100,13 @@ public class InsectImgServiceImpl implements IInsectImgService
     /**
      * 批量删除昆虫图片
      * 
-     * @param insectIds 需要删除的昆虫图片主键
+     * @param insectImgs 需要删除的昆虫图片主键
      * @return 结果
      */
     @Override
-    public int deleteInsectImgByInsectIds(Long[] insectIds)
+    public int deleteInsectImgs(InsectImg[] insectImgs)
     {
-        return insectImgMapper.deleteInsectImgByInsectIds(insectIds);
+        return insectImgMapper.deleteInsectImgs(insectImgs);
     }
 
     /**

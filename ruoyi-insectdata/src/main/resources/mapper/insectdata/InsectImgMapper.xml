@@ -72,10 +72,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         delete from insect_img where insect_id = #{insectId}
     </delete>
 
-    <delete id="deleteInsectImgByInsectIds" parameterType="String">
-        delete from insect_img where insect_id in 
-        <foreach item="insectId" collection="array" open="(" separator="," close=")">
-            #{insectId}
+    <delete id="deleteInsectImgs" parameterType="InsectImg">
+        delete from insect_img where insect_id and img in
+        <foreach item="item" collection="array" open="(" separator="," close=")">
+            #{item.insectId},#{item.img}
         </foreach>
     </delete>
 </mapper>

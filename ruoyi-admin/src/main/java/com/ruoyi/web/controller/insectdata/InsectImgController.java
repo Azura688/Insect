@@ -128,9 +128,9 @@ public class InsectImgController extends BaseController
     @ApiOperation("删除昆虫图片")
     @PreAuthorize("@ss.hasPermi('insectdata:insectImg:remove')")
     @Log(title = "昆虫图片", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{insectIds}")
-    public AjaxResult remove(@PathVariable Long[] insectIds)
+	@DeleteMapping
+    public AjaxResult remove(@RequestBody InsectImg[] insectImgs)
     {
-        return toAjax(insectImgService.deleteInsectImgByInsectIds(insectIds));
+        return toAjax(insectImgService.deleteInsectImgs(insectImgs));
     }
 }

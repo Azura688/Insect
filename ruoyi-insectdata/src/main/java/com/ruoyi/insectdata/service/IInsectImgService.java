@@ -55,10 +55,10 @@ public interface IInsectImgService
     /**
      * 批量删除昆虫图片
      * 
-     * @param insectIds 需要删除的昆虫图片主键集合
+     * @param insectImgs 需要删除的昆虫图片
      * @return 结果
      */
-    public int deleteInsectImgByInsectIds(Long[] insectIds);
+    public int deleteInsectImgs(InsectImg[] insectImgs);
 
     /**
      * 删除昆虫图片信息
