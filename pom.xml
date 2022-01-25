@@ -216,7 +216,7 @@
     </dependencyManagement>
 
     <modules>
-        <module>ruoyi-admin</module>
+        <module>insect-admin</module>
         <module>ruoyi-framework</module>
         <module>ruoyi-system</module>
         <module>ruoyi-quartz</module>
