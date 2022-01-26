@@ -117,7 +117,7 @@ public class IdentificationController extends BaseController
      */
     @ApiOperation("查询指定data的具体昆虫识别结果")
     @GetMapping(value = "/detail/{dataId}")
-    public TableDataInfo selectIdentificationDetail(Integer dataId){
+    public TableDataInfo selectIdentificationDetail(@PathVariable("dataId") Integer dataId){
         List<Identification> list = identificationService.selectIdentificationDetail(dataId);
         return getDataTable(list);
         //return identificationService.selectIdentificationDetail(dataId);
