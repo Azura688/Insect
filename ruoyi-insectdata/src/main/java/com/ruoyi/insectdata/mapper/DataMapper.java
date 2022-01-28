@@ -3,6 +3,7 @@ package com.ruoyi.insectdata.mapper;
 import java.util.Date;
 import java.util.List;
 import com.ruoyi.insectdata.domain.Data;
+import com.ruoyi.insectdata.domain.InsectImg;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.parameters.P;
 
@@ -37,6 +38,14 @@ public interface DataMapper
      * @return 结果
      */
     public int insertData(Data data);
+
+    /**
+     * 批量新增数据图片
+     *
+     * @param dataList 数据图片列表
+     * @return 结果
+     */
+    public int batchData(List<Data> dataList);
 
     /**
      * 修改识别数据

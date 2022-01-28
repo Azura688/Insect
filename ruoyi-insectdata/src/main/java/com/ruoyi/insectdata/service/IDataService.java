@@ -37,6 +37,17 @@ public interface IDataService
     public int insertData(Data data);
 
     /**
+     * 批量增加数据图片
+     *
+     * @param originalPictures 数据图片列表
+     * @param equipmentId 设备号
+     * @param photoTime 拍摄时间
+     * @param photoArea 拍摄地点
+     * @return 结果
+     */
+    public int batchData(String[] originalPictures, Integer equipmentId, Date photoTime, String photoArea);
+
+    /**
      * 修改识别数据
      * 
      * @param data 识别数据

@@ -1,5 +1,6 @@
 package com.ruoyi.insectdata.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
@@ -56,6 +57,34 @@ public class DataServiceImpl implements IDataService
     {
         data.setCreateTime(DateUtils.getNowDate());
         return dataMapper.insertData(data);
+    }
+
+    /**
+     * 批量增加数据图片
+     *
+     * @param originalPictures 数据图片列表
+     * @param equipmentId 设备号
+     * @param photoTime 拍摄时间
+     * @param photoArea 拍摄地点
+     * @return 结果
+     */
+    @Override
+    public int batchData(String[] originalPictures, Integer equipmentId, Date photoTime, String photoArea) {
+        List<Data> list = new ArrayList<Data>();
+        for (String img : originalPictures){
+            Data data = new Data();
+            data.setEquipmentId(equipmentId);
+            data.setPhotoTime(photoTime);
+            data.setPhotoArea(photoArea);
+            data.setCreateTime(DateUtils.getNowDate());
+            data.setOriginalPicture(img);
+            list.add(data);
+        }
+        if (list.size() > 0) {
+            return dataMapper.batchData(list);
+        }else {
+            return 0;
+        }
     }
 
     /**

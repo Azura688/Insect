@@ -96,6 +96,21 @@ public class DataController extends BaseController
     }
 
     /**
+     * 批量增加数据图片
+     *
+     * @param originalPictures 数据图片列表
+     * @param equipmentId 设备号
+     * @param photoTime 拍摄时间
+     * @param photoArea 拍摄地点
+     * @return 结果
+     */
+    @ApiOperation("批量增加数据图片")
+    @PostMapping("/batchData")
+    public AjaxResult batchData(String[] originalPictures, Integer equipmentId, Date photoTime, String photoArea){
+        return toAjax(dataService.batchData(originalPictures,equipmentId,photoTime,photoArea));
+    }
+
+    /**
      * 修改识别数据
      */
     @ApiOperation("修改识别数据")
