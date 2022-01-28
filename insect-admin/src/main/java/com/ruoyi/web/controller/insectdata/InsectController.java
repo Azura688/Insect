@@ -42,14 +42,14 @@ public class InsectController extends BaseController
     }
 
     /**
-     * 查询昆虫种列表
+     * 查询昆虫目、科、种列表
      */
-    @ApiOperation("查询昆虫种列表")
+    @ApiOperation("查询昆虫目、科、种列表")
     @PreAuthorize("@ss.hasPermi('insectdata:insect:list')")
     @GetMapping("/listSpecies")
-    public AjaxResult listSpecies()
+    public AjaxResult listSpecies(String type)
     {
-        List<Insect> list = insectService.selectInsectSpeciesList();
+        List<Insect> list = insectService.selectInsectSpeciesList(type);
         return AjaxResult.success(list);
     }
 
@@ -89,6 +89,9 @@ public class InsectController extends BaseController
     {
         return toAjax(insectService.insertInsect(insect));
     }
+
+
+
 
     /**
      * 修改昆虫

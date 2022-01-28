@@ -32,8 +32,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
 
-    <select id="selectInsectSpeciesList" resultMap="InsectResult">
-        select * from insect where type = 2
+    <select id="selectInsectSpeciesList" parameterType="String" resultMap="InsectResult">
+        select * from insect where type = #{type}
     </select>
 
     <select id="selectInsectByInsectId" parameterType="Integer" resultMap="InsectResult">

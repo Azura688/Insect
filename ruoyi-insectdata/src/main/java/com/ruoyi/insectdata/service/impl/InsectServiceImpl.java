@@ -45,14 +45,14 @@ public class InsectServiceImpl implements IInsectService
     }
 
     /**
-     * 查询昆虫种列表
+     * 查询昆虫目、科、种列表
      *
-     * @param
+     * @param type 类别
      * @return 昆虫集合
      */
     @Override
-    public List<Insect> selectInsectSpeciesList(){
-        return insectMapper.selectInsectSpeciesList();
+    public List<Insect> selectInsectSpeciesList(String type){
+        return insectMapper.selectInsectSpeciesList(type);
     }
 
     /**
