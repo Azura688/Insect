@@ -2,6 +2,8 @@ package com.ruoyi.web.controller.common;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import com.ruoyi.framework.config.ServerConfig;
  * 
  * @author ruoyi
  */
+@Api(tags = "通用请求处理")
 @RestController
 public class CommonController
 {
@@ -66,7 +69,8 @@ public class CommonController
     /**
      * 通用上传请求
      */
-    @PostMapping("/common/upload")
+    @ApiOperation("通用上传请求")
+    @PostMapping(value = "/common/upload")
     public AjaxResult uploadFile(MultipartFile file) throws Exception
     {
         try
@@ -85,6 +89,23 @@ public class CommonController
         {
             return AjaxResult.error(e.getMessage());
         }
+    }
+
+    /**
+     * 多图上传
+     */
+    @ApiOperation("多图上传")
+    @PostMapping("/common/batchUploadFile")
+    public AjaxResult[] batchUploadFile(MultipartFile[] files) throws Exception
+    {
+        int num = files.length;
+        int flag = 0;
+        AjaxResult[] ajaxResults = new AjaxResult[num];
+        for(MultipartFile file: files){
+            ajaxResults[flag] = uploadFile(file);
+            flag ++;
+        }
+        return ajaxResults;
     }
 
     /**
