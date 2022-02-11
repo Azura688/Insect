@@ -1,5 +1,7 @@
 package com.ruoyi.insectdata.service;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import com.ruoyi.insectdata.domain.Predict;
 
@@ -18,6 +20,22 @@ public interface IPredictService
      * @return 预测结果
      */
     public Predict selectPredictByInsectId(Integer insectId);
+
+    /**
+     * 按日期查询某时间段内预测结果
+     *
+     * @param
+     * @return 每日对应的预测结果
+     */
+    public int[] selectPredictByDatePeriod(Date start, Date end, Integer insectId) throws ParseException;
+
+    /**
+     * 按日期查询某天某昆虫每小时的预测结果
+     *
+     * @param
+     * @return 每小时对应的预测结果
+     */
+    public int[] selectPredictByDate(Date date, Integer insectId) throws ParseException ;
 
     /**
      * 查询预测结果列表

@@ -21,6 +21,8 @@ public class Predict extends BaseEntity
     private Integer insectId;
 
     /** 预测时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    //@Excel(name = "拍摄时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")//
     private Date predictTime;
 
     /** 预测结果 */

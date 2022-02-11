@@ -1,7 +1,9 @@
 package com.ruoyi.insectdata.mapper;
 
+import java.util.Date;
 import java.util.List;
 import com.ruoyi.insectdata.domain.Predict;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 预测结果Mapper接口
@@ -18,6 +20,15 @@ public interface PredictMapper
      * @return 预测结果
      */
     public Predict selectPredictByInsectId(Integer insectId);
+
+    /**
+     * 根据日期查询预测结果
+     *
+     * @param
+     * @return 每日对应的预测结果
+     */
+    public Integer selectPredictByDate(@Param("start") Date start, @Param("end") Date end, @Param("insectId") Integer insectId);
+
 
     /**
      * 查询预测结果列表

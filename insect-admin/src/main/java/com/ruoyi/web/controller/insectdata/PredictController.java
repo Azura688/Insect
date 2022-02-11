@@ -14,11 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
  * 预测结果Controller
- * 
+ *
  * @author zmh
  * @date 2021-08-29
  */
@@ -41,6 +44,30 @@ public class PredictController extends BaseController
         startPage();
         List<Predict> list = predictService.selectPredictList(predict);
         return getDataTable(list);
+    }
+
+    /**
+     * 按起止日期查询某时间段内预测结果
+     */
+    @ApiOperation("按起止日期查询某时间段内预测结果")
+    @PreAuthorize("@ss.hasPermi('insectdata:identification:list')")
+    @GetMapping("/listByDatePeriod")
+    public AjaxResult listByDatePeriod(Date start, Date end, Integer insectId) throws ParseException {
+        //整型数组转换成字符串数组
+        String arrString = Arrays.toString(predictService.selectPredictByDatePeriod(start,end,insectId));
+        return AjaxResult.success(arrString);
+    }
+
+    /**
+     * 按日期查询某天某昆虫每小时的预测结果
+     */
+    @ApiOperation("按日期查询某天某昆虫每小时的预测结果")
+    @PreAuthorize("@ss.hasPermi('insectdata:identification:list')")
+    @GetMapping("/listByDate")
+    public AjaxResult listByDate(Date date,Integer insectId) throws ParseException {
+        //整型数组转换成字符串数组
+        String arrString = Arrays.toString(predictService.selectPredictByDate(date,insectId));
+        return AjaxResult.success(arrString);
     }
 
     /**

@@ -26,7 +26,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="predictNum != null "> and predict_num = #{predictNum}</if>
         </where>
     </select>
-    
+
+    <select id="selectPredictByDate" resultType="Integer">
+        <!--        <include refid="selectIdentificationVo"/>-->
+        SELECT SUM(`predict_num`)
+        FROM predict
+        WHERE predict_time BETWEEN #{start} AND #{end} AND insect_id = #{insectId}
+    </select>
+
     <select id="selectPredictByInsectId" parameterType="Integer" resultMap="PredictResult">
         <include refid="selectPredictVo"/>
         where insect_id = #{insectId}
