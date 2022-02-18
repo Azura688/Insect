@@ -74,4 +74,14 @@ public interface InsectMapper
      * @return 结果
      */
     public int hasChildByInsectId(Integer insectId);
+
+    /**
+     * 是否存在相同名字昆虫
+     */
+    public int hasSameInsectName(String insectName);
+
+    /**
+     * 根据昆虫id查询其种类
+     */
+    public String selectTypeByInsectId(Integer insectId);
 }

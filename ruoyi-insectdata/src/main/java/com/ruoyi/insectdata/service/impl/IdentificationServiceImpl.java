@@ -11,10 +11,8 @@ import com.ruoyi.insectdata.mapper.IdentificationMapper;
 import com.ruoyi.insectdata.domain.Identification;
 import com.ruoyi.insectdata.service.IIdentificationService;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
-import static com.ruoyi.insectdata.domain.DateUtils.*;
+import static com.ruoyi.insectdata.utils.DateUtils.*;
 
 /**
  * 识别结果Service业务层处理

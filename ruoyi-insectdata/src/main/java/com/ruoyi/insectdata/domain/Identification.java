@@ -27,6 +27,10 @@ public class Identification extends BaseEntity
     @Excel(name = "数量")
     private Integer number;
 
+    /** 标记框 */
+    @Excel(name = "标记框")
+    private String markerBox;
+
     private Insect insect;
 
     public Insect getInsect(){
@@ -64,6 +68,15 @@ public class Identification extends BaseEntity
     {
         return number;
     }
+    public void setMarkerBox(String markerBox)
+    {
+        this.markerBox = markerBox;
+    }
+
+    public String getMarkerBox()
+    {
+        return markerBox;
+    }
 
     @Override
     public String toString() {
@@ -71,6 +84,7 @@ public class Identification extends BaseEntity
             .append("dataId", getDataId())
             .append("insectId", getInsectId())
             .append("number", getNumber())
+            .append("markerBox", getMarkerBox())
             .toString();
     }
 }

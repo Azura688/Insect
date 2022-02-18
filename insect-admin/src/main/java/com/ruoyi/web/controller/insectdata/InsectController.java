@@ -6,6 +6,7 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.insectdata.domain.Insect;
+import com.ruoyi.insectdata.mapper.InsectMapper;
 import com.ruoyi.insectdata.service.IInsectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +29,9 @@ public class InsectController extends BaseController
 {
     @Autowired
     private IInsectService insectService;
+
+    @Autowired
+    private InsectMapper insectMapper;
 
     /**
      * 查询昆虫列表
@@ -87,7 +91,12 @@ public class InsectController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody Insect insect)
     {
-        return toAjax(insectService.insertInsect(insect));
+        if(insectMapper.hasSameInsectName(insect.getInsectName()) != 0){
+            return AjaxResult.error("昆虫名重复！");
+        }else{
+            return toAjax(insectService.insertInsect(insect));
+        }
+
     }
 
 

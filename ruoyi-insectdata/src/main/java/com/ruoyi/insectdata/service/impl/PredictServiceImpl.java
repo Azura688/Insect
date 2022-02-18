@@ -11,7 +11,7 @@ import com.ruoyi.insectdata.mapper.PredictMapper;
 import com.ruoyi.insectdata.domain.Predict;
 import com.ruoyi.insectdata.service.IPredictService;
 
-import static com.ruoyi.insectdata.domain.DateUtils.*;
+import static com.ruoyi.insectdata.utils.DateUtils.*;
 
 /**
  * 预测结果Service业务层处理

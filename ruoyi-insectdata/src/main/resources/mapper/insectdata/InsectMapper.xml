@@ -98,4 +98,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(1) from insect
 		where parent_id = #{insectId} limit 1
 	</select>
+
+    <select id="hasSameInsectName" parameterType="String" resultType="int">
+        select count(*) from insect
+        where insect_name = #{insectName}
+    </select>
+
+    <select id="selectTypeByInsectId" parameterType="Integer" resultType="String">
+        select `type`
+        from insect
+        where insect_id = #{insectId}
+    </select>
+
 </mapper>

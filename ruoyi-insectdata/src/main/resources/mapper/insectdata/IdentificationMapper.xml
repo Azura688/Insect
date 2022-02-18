@@ -8,6 +8,7 @@
         <result property="dataId"    column="data_id"    />
         <result property="insectId"    column="insect_id"    />
         <result property="number"    column="number"    />
+        <result property="markerBox"    column="marker_box"    />
     </resultMap>
 
     <resultMap type="Identification" id="DataInsectResult">
@@ -16,6 +17,7 @@
         <result property="insect.parentId"    column="parent_id"    />
         <result property="insect.insectName" column="insect_name"/>
         <result property="number" column="number"/>
+        <result property="markerBox"    column="marker_box"    />
     </resultMap>
 
     <sql id="selectIdentificationVo">
@@ -28,6 +30,7 @@
             <if test="dataId != null "> and data_id = #{dataId}</if>
             <if test="insectId != null "> and insect_id = #{insectId}</if>
             <if test="number != null "> and number = #{number}</if>
+            <if test="markerBox != null  and markerBox != ''"> and marker_box = #{markerBox}</if>
         </where>
     </select>
 
@@ -44,7 +47,7 @@
     </select>
 
     <select id="selectIdentificationDetail" parameterType="Integer" resultMap="DataInsectResult">
-        select id.data_id data_id, i.insect_name insect_name, id.number number, i.insect_id insect_id, i.parent_id parent_id
+        select id.data_id data_id, i.insect_name insect_name, id.number number, i.insect_id insect_id, i.parent_id parent_id, id.marker_box marker_box
         from insect i, identification id
         where i.insect_id = id.insect_id and i.type = 2 and id.data_id = #{dataId}
     </select>
@@ -55,11 +58,13 @@
             <if test="dataId != null">data_id,</if>
             <if test="insectId != null">insect_id,</if>
             <if test="number != null">number,</if>
+            <if test="markerBox != null">marker_box,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="dataId != null">#{dataId},</if>
             <if test="insectId != null">#{insectId},</if>
             <if test="number != null">#{number},</if>
+            <if test="markerBox != null">#{markerBox},</if>
         </trim>
     </insert>
 
@@ -68,6 +73,7 @@
         <trim prefix="SET" suffixOverrides=",">
             <!--<if test="insectId != null">insect_id = #{insectId},</if>-->
             <if test="number != null">number = #{number},</if>
+            <if test="markerBox != null">marker_box = #{markerBox},</if>
         </trim>
         where data_id = #{dataId} and insect_id = #{insectId}
     </update>

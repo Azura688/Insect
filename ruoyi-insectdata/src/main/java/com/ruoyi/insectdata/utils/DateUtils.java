@@ -1,4 +1,4 @@
-package com.ruoyi.insectdata.domain;
+package com.ruoyi.insectdata.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -7,7 +7,10 @@ import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.insectdata.domain.Identification;
+import com.ruoyi.insectdata.mapper.InsectMapper;
 import com.ruoyi.insectdata.service.IIdentificationService;
+import com.ruoyi.insectdata.service.IInsectImgService;
+import com.ruoyi.insectdata.service.IInsectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
@@ -34,6 +37,9 @@ public class IdentificationController extends BaseController
     @Autowired
     private IIdentificationService identificationService;
 
+    @Autowired
+    private InsectMapper insectMapper;
+
     /**
      * 查询识别结果列表
      */
@@ -46,6 +52,13 @@ public class IdentificationController extends BaseController
         List<Identification> list = identificationService.selectIdentificationList(identification);
         return getDataTable(list);
     }
+
+    /**
+     * 根据dataId查询标记框及对应昆虫
+     */
+    /*public AjaxResult listMarkAndInsect(Integer dataId){
+
+    }*/
 
     /**
      * 按起止日期查询某时间段内某昆虫每天的数量
@@ -113,7 +126,7 @@ public class IdentificationController extends BaseController
     }
 
     /**
-     *查询指定data的具体昆虫识别结果
+     *查询指定data的具体昆虫识别结果(含标记框及对应昆虫)
      */
     @ApiOperation("查询指定data的具体昆虫识别结果")
     @GetMapping(value = "/detail/{dataId}")
@@ -132,7 +145,11 @@ public class IdentificationController extends BaseController
     @PostMapping
     public AjaxResult add(Identification identification)
     {
-        return toAjax(identificationService.insertIdentification(identification));
+        if(insectMapper.selectTypeByInsectId(identification.getInsectId()) != "2"){
+            return AjaxResult.error("请选择正确的昆虫！");
+        }else{
+            return toAjax(identificationService.insertIdentification(identification));
+        }
     }
 
     /**
