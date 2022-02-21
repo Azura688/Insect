@@ -116,7 +116,7 @@ public class InsectImgController extends BaseController
     @ApiOperation("修改昆虫图片")
     @PreAuthorize("@ss.hasPermi('insectdata:insectImg:edit')")
     @Log(title = "昆虫图片", businessType = BusinessType.UPDATE)
-    @PutMapping
+    @PostMapping("/edit")
     public AjaxResult edit(@RequestBody InsectImg insectImg)
     {
         return toAjax(insectImgService.updateInsectImg(insectImg));
@@ -128,7 +128,7 @@ public class InsectImgController extends BaseController
     @ApiOperation("删除昆虫图片")
     @PreAuthorize("@ss.hasPermi('insectdata:insectImg:remove')")
     @Log(title = "昆虫图片", businessType = BusinessType.DELETE)
-	@DeleteMapping
+	@PostMapping("/delete")
     public AjaxResult remove(@RequestBody InsectImg[] insectImgs)
     {
         return toAjax(insectImgService.deleteInsectImgs(insectImgs));

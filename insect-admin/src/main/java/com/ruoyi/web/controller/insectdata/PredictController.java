@@ -113,7 +113,7 @@ public class PredictController extends BaseController
     @ApiOperation("修改预测结果")
     @PreAuthorize("@ss.hasPermi('insectdata:predict:edit')")
     @Log(title = "预测结果", businessType = BusinessType.UPDATE)
-    @PutMapping
+    @PostMapping("/edit")
     public AjaxResult edit(@RequestBody Predict predict)
     {
         return toAjax(predictService.updatePredict(predict));
@@ -125,7 +125,7 @@ public class PredictController extends BaseController
     @ApiOperation("删除预测结果")
     @PreAuthorize("@ss.hasPermi('insectdata:predict:remove')")
     @Log(title = "预测结果", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{insectIds}")
+	@PostMapping("/delete/{insectIds}")
     public AjaxResult remove(@PathVariable Integer[] insectIds)
     {
         return toAjax(predictService.deletePredictByInsectIds(insectIds));

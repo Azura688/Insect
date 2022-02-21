@@ -145,10 +145,11 @@ public class IdentificationController extends BaseController
     @PostMapping
     public AjaxResult add(Identification identification)
     {
-        if(insectMapper.selectTypeByInsectId(identification.getInsectId()) != "2"){
-            return AjaxResult.error("请选择正确的昆虫！");
-        }else{
+        System.out.println(insectMapper.selectTypeByInsectId(identification.getInsectId()));
+        if(insectMapper.selectTypeByInsectId(identification.getInsectId()).equals("2")){
             return toAjax(identificationService.insertIdentification(identification));
+        }else{
+            return AjaxResult.error("请选择正确的昆虫！");
         }
     }
 
@@ -158,7 +159,7 @@ public class IdentificationController extends BaseController
     @ApiOperation("修改识别结果")
     @PreAuthorize("@ss.hasPermi('insectdata:identification:edit')")
     @Log(title = "识别结果", businessType = BusinessType.UPDATE)
-    @PutMapping
+    @PostMapping("/edit")
     public AjaxResult edit(@RequestBody Identification identification)
     {
         return toAjax(identificationService.updateIdentification(identification));
@@ -171,7 +172,7 @@ public class IdentificationController extends BaseController
     @ApiOperation("删除指定data的所有识别结果")
     @PreAuthorize("@ss.hasPermi('insectdata:identification:remove')")
     @Log(title = "识别结果", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{dataIds}")
+	@PostMapping("/deleteAll/{dataIds}")
     public AjaxResult remove(@PathVariable Integer[] dataIds)
     {
         return toAjax(identificationService.deleteIdentificationByDataIds(dataIds));
@@ -183,7 +184,7 @@ public class IdentificationController extends BaseController
     @ApiOperation("删除data指定昆虫id的识别结果")
     @PreAuthorize("@ss.hasPermi('insectdata:identification:remove')")
     @Log(title = "识别结果", businessType = BusinessType.DELETE)
-    @DeleteMapping("/delete/{dataId}&{insectId}")
+    @PostMapping("/delete/{dataId}&{insectId}")
     public AjaxResult delete(@RequestParam("dataId") Integer dataId, @RequestParam("insectId") Integer insectId)
     {
         return toAjax(identificationService.deleteIdentificationByDataIdAndInsectId(dataId,insectId));

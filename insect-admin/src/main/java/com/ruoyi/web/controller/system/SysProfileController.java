@@ -7,13 +7,7 @@ import com.ruoyi.system.mapper.SysUserMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.config.RuoYiConfig;
@@ -74,7 +68,7 @@ public class SysProfileController extends BaseController
      */
     @ApiOperation("修改用户")
     @Log(title = "个人信息", businessType = BusinessType.UPDATE)
-    @PutMapping
+    @PostMapping
     public AjaxResult updateProfile(@RequestBody SysUser user)
     {
         if (StringUtils.isNotEmpty(user.getPhonenumber())
@@ -118,7 +112,7 @@ public class SysProfileController extends BaseController
      */
     @ApiOperation("重置密码")
     @Log(title = "个人信息", businessType = BusinessType.UPDATE)
-    @PutMapping("/updatePwd")
+    @PostMapping("/updatePwd")
     public AjaxResult updatePwd(String oldPassword, String newPassword)
     {
         LoginUser loginUser = getLoginUser();

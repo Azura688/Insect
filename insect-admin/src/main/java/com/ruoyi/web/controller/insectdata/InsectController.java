@@ -108,7 +108,7 @@ public class InsectController extends BaseController
     @ApiOperation("修改昆虫")
     @PreAuthorize("@ss.hasPermi('insectdata:insect:edit')")
     @Log(title = "昆虫", businessType = BusinessType.UPDATE)
-    @PutMapping
+    @PostMapping("/edit")
     public AjaxResult edit(@RequestBody Insect insect)
     {
         return toAjax(insectService.updateInsect(insect));
@@ -120,7 +120,7 @@ public class InsectController extends BaseController
     @ApiOperation("删除昆虫")
     @PreAuthorize("@ss.hasPermi('insectdata:insect:remove')")
     @Log(title = "昆虫", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{insectId}")
+	@PostMapping("/delete/{insectId}")
     public AjaxResult remove(@PathVariable Integer insectId)
     {
         if (insectService.hasChildByInsectId(insectId)){

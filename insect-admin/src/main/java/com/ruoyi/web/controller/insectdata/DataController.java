@@ -116,7 +116,7 @@ public class DataController extends BaseController
     @ApiOperation("修改识别数据")
     @PreAuthorize("@ss.hasPermi('insectdata:data:edit')")
     @Log(title = "识别数据", businessType = BusinessType.UPDATE)
-    @PutMapping
+    @PostMapping("/edit")
     public AjaxResult edit(@RequestBody Data data)
     {
         return toAjax(dataService.updateData(data));
@@ -128,7 +128,7 @@ public class DataController extends BaseController
     @ApiOperation("删除识别数据")
     @PreAuthorize("@ss.hasPermi('insectdata:data:remove')")
     @Log(title = "识别数据", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{dataIds}")
+	@PostMapping("/delete/{dataIds}")
     public AjaxResult remove(@PathVariable Integer[] dataIds)
     {
         identificationService.deleteIdentificationByDataIds(dataIds);
