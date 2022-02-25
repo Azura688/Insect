@@ -143,7 +143,7 @@ public class IdentificationController extends BaseController
     @PreAuthorize("@ss.hasPermi('insectdata:identification:add')")
     @Log(title = "识别结果", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(Identification identification)
+    public AjaxResult add(@RequestBody Identification identification)
     {
         System.out.println(insectMapper.selectTypeByInsectId(identification.getInsectId()));
         if(insectMapper.selectTypeByInsectId(identification.getInsectId()).equals("2")){
