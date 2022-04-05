@@ -11,12 +11,13 @@ import com.ruoyi.insectdata.domain.Equipment;
 import com.ruoyi.insectdata.service.IDataService;
 import com.ruoyi.insectdata.service.IEquipmentService;
 import com.ruoyi.insectdata.service.IIdentificationService;
+import com.ruoyi.web.controller.common.CommonController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.hibernate.hql.spi.id.TableBasedDeleteHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -40,6 +41,9 @@ public class DataController extends BaseController
 
     @Autowired
     private IIdentificationService identificationService;
+
+    @Autowired
+    private CommonController commonController;
 
     /**
      * 查询识别数据列表
@@ -108,6 +112,22 @@ public class DataController extends BaseController
     @PostMapping("/batchData")
     public AjaxResult batchData(String[] originalPictures, Integer equipmentId, Date photoTime, String photoArea){
         return toAjax(dataService.batchData(originalPictures,equipmentId,photoTime,photoArea));
+    }
+
+    @ApiOperation("批量上传和添加数据图片")
+    @PostMapping("/upLoadAndInsertData")
+    public AjaxResult[] upLoadAndInsertImg(Integer equipmentId, Date photoTime, String photoArea, @RequestParam("file") MultipartFile[] files) throws Exception {
+        int num = files.length;
+        AjaxResult[] ajaxResults = commonController.batchUploadFile(files);
+        String[] originalPictures = new String[num];
+        int i = 0;
+        for (AjaxResult ajax : ajaxResults) {
+            ajax.put("equipmentId", equipmentId);
+            originalPictures[i] = (String) ajax.get("url");
+            i++;
+        }
+        dataService.batchData(originalPictures,equipmentId,photoTime,photoArea);
+        return ajaxResults;
     }
 
     /**

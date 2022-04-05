@@ -99,13 +99,20 @@ public class CommonController
     public AjaxResult[] batchUploadFile(MultipartFile[] files) throws Exception
     {
         int num = files.length;
-        int flag = 0;
         AjaxResult[] ajaxResults = new AjaxResult[num];
-        for(MultipartFile file: files){
-            ajaxResults[flag] = uploadFile(file);
-            flag ++;
+        int flag = 0;
+        try {
+            for(MultipartFile file: files){
+                ajaxResults[flag] = uploadFile(file);
+                flag ++;
+            }
+            return ajaxResults;
         }
-        return ajaxResults;
+        catch (Exception e){
+            ajaxResults[flag] = AjaxResult.error(e.getMessage());
+            return ajaxResults;
+        }
+
     }
 
     /**

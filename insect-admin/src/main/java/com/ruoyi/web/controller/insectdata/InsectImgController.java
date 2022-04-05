@@ -8,6 +8,7 @@ import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.insectdata.domain.InsectImg;
 import com.ruoyi.insectdata.service.IInsectImgService;
+import com.ruoyi.web.controller.common.CommonController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class InsectImgController extends BaseController
 {
     @Autowired
     private IInsectImgService insectImgService;
+
+    @Autowired
+    private CommonController commonController;
 
     /**
      * 查询昆虫图片列表
@@ -84,6 +88,7 @@ public class InsectImgController extends BaseController
     /**
      * 批量新增昆虫图片
      *
+     * @param insectId 昆虫id
      * @param imgs 昆虫图片列表
      * @return 结果
      */
@@ -92,6 +97,30 @@ public class InsectImgController extends BaseController
     public AjaxResult batchInsertImg(Long insectId, String[] imgs){
         return toAjax(insectImgService.batchInsertImg(insectId,imgs));
     }
+
+    /**
+     * 批量上传和添加昆虫图片
+     *
+     * @param insectId 昆虫id
+     * @param files 昆虫图片
+     * @return 结果
+     */
+    @ApiOperation("批量上传和添加昆虫图片")
+    @PostMapping("/upLoadAndInsertImg")
+    public AjaxResult[] upLoadAndInsertImg(Long insectId, @RequestParam("file") MultipartFile[] files) throws Exception {
+        int num = files.length;
+        AjaxResult[] ajaxResults = commonController.batchUploadFile(files);
+        String[] imgs = new String[num];
+        int i = 0;
+        for (AjaxResult ajax : ajaxResults) {
+            ajax.put("insectId", insectId);
+            imgs[i] = (String) ajax.get("url");
+            i++;
+        }
+        insectImgService.batchInsertImg(insectId, imgs);
+        return ajaxResults;
+    }
+
 
     /**
      * 批量添加昆虫图片
