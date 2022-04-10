@@ -114,7 +114,7 @@ public class InsectImgController extends BaseController
         int i = 0;
         for (AjaxResult ajax : ajaxResults) {
             ajax.put("insectId", insectId);
-            imgs[i] = (String) ajax.get("url");
+            imgs[i] = "http://81.71.138.29:59999" + ajax.get("fileName");
             i++;
         }
         insectImgService.batchInsertImg(insectId, imgs);

@@ -22,11 +22,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="insectId != null "> and insect_id = #{insectId}</if>
         </where>
+        order by create_time desc
     </select>
     
     <select id="selectInsectImgByInsectId" parameterType="Long" resultMap="InsectImgResult">
         <include refid="selectInsectImgVo"/>
         where insect_id = #{insectId}
+        order by create_time desc
     </select>
         
     <insert id="insertInsectImg" parameterType="InsectImg">

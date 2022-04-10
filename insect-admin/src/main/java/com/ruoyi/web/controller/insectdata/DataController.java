@@ -123,7 +123,7 @@ public class DataController extends BaseController
         int i = 0;
         for (AjaxResult ajax : ajaxResults) {
             ajax.put("equipmentId", equipmentId);
-            originalPictures[i] = (String) ajax.get("url");
+            originalPictures[i] = "http://81.71.138.29:59999" + ajax.get("fileName");
             i++;
         }
         dataService.batchData(originalPictures,equipmentId,photoTime,photoArea);
