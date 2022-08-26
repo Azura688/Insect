@@ -110,6 +110,7 @@ pagehelper:
 swagger:
   # 是否开启swagger
   enabled: true
+  #enabled: false
   # 请求前缀
   pathMapping: /dev-api
 

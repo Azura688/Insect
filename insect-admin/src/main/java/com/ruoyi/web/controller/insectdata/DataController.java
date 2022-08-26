@@ -116,6 +116,7 @@ public class DataController extends BaseController
 
     @ApiOperation("批量上传和添加数据图片")
     @PostMapping("/upLoadAndInsertData")
+    @Log(title = "批量上传和添加数据图片", businessType = BusinessType.INSERT)
     public AjaxResult[] upLoadAndInsertImg(Integer equipmentId, Date photoTime, String photoArea, @RequestParam("file") MultipartFile[] files) throws Exception {
         int num = files.length;
         AjaxResult[] ajaxResults = commonController.batchUploadFile(files);
