@@ -9,8 +9,8 @@ ruoyi:
   # 实例演示开关
   demoEnabled: true
   # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
-  #profile: D:/ruoyi/uploadPath
-  profile: /insect/ruoyi-insect/uploadPath
+  profile: D://web//insect//uploadPath
+  #profile: /insect/ruoyi-insect/uploadPath
   # 获取ip地址开关
   addressEnabled: false
   # 验证码类型 math 数组计算 char 字符验证
@@ -18,6 +18,7 @@ ruoyi:
 
 # 开发环境配置
 server:
+  max-http-header-size: 102400
   # 服务器的HTTP端口，默认为8080
   port: 59999
   #port: 8080
@@ -67,8 +68,8 @@ spring:
     # 数据库索引
     database: 0
     # 密码
-    #password: 123456
-    password: hzau123
+    password: 123456
+    #password: hzau123
     # 连接超时时间
     timeout: 10s
     lettuce:

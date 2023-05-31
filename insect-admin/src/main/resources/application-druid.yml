@@ -6,16 +6,21 @@ spring:
         druid:
             # 主库数据源
             master:
+
+                #linux
                 url: jdbc:mysql://81.71.138.29:28019/ruoyi_insect?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-                username: root
                 password: hzau123
+                #windows
+                #url: jdbc:mysql://localhost:3306/ruoyi_insect?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                #password: helloworld1.cpp
+                username: root
             # 从库数据源
             slave:
                 # 从数据源开关/默认关闭
                 enabled: false
-                url: 
-                username: 
-                password: 
+                url:
+                username:
+                password:
             # 初始连接数
             initialSize: 5
             # 最小连接池数量
@@ -38,7 +43,8 @@ spring:
             webStatFilter: 
                 enabled: true
             statViewServlet:
-                enabled: true
+                # 因为安全问题，需要关闭公网的druid界面
+                enabled: false
                 # 设置白名单，不填则允许所有访问
                 allow:
                 url-pattern: /druid/*
