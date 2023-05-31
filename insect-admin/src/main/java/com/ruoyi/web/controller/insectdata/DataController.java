@@ -49,7 +49,7 @@ public class DataController extends BaseController
      * 查询识别数据列表
      */
     @ApiOperation("查询数据")
-    @PreAuthorize("@ss.hasPermi('insectdata:data:list')")
+    //@PreAuthorize("@ss.hasPermi('insectdata:data:list')")
     @GetMapping("/list")
     public TableDataInfo list(Data data)
     {

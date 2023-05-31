@@ -1,22 +1,22 @@
 package com.ruoyi.common.utils.file;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import com.ruoyi.common.config.RuoYiConfig;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.uuid.IdUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.Objects;
 
 /**
  * 文件处理工具类
@@ -253,4 +253,19 @@ public class FileUtils
         }
         return strFileExtendName;
     }
+
+    public static MultipartFile fileChange(String filePath) throws IOException {
+        // 读取本地文件
+        File localFile = ResourceUtils.getFile(filePath);
+        byte[] bytes = Files.readAllBytes(localFile.toPath());
+        // 创建 MultipartFile 对象
+        MultipartFile multipartFile = new MockMultipartFile(
+                filePath,
+                filePath,
+                Objects.requireNonNull(Files.probeContentType(localFile.toPath())),
+                bytes
+        );
+        return multipartFile;
+    }
+
 }

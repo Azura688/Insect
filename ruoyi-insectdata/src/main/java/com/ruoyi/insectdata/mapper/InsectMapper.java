@@ -1,7 +1,8 @@
 package com.ruoyi.insectdata.mapper;
 
-import java.util.List;
 import com.ruoyi.insectdata.domain.Insect;
+
+import java.util.List;
 
 /**
  * 昆虫Mapper接口
@@ -18,6 +19,8 @@ public interface InsectMapper
      * @return 昆虫
      */
     public Insect selectInsectByInsectId(Integer insectId);
+
+    public int selectInsectIdByInsectName(String insectName);
 
     /**
      * 查询昆虫列表
