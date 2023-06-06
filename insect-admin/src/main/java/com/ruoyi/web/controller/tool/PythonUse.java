@@ -30,7 +30,8 @@ public class PythonUse {
     //Anaconda系统变量路径
     private String condaPath = System.getenv("anaconda");
     //python模型路径
-    private String pythonPath = "D:\\testPython\\cloud\\";
+    //private String pythonPath = "D:\\testPython\\cloud\\";
+    private String pythonPath = "D:\\work\\yolov5\\yolov5-5.0.1\\";
 
     private HashMap<Integer, String> insectMap = new HashMap<Integer, String>() {{
         put(0, "灰飞虱");
@@ -56,7 +57,7 @@ public class PythonUse {
         String imgPath = data.getOriginalPicture();
         System.out.println(imgPath);
         try {
-            Process proc = Runtime.getRuntime().exec(condaPath+"\\activate.bat insect && d: && cd " + pythonPath + "&& python detect.py --weights ./weights/best.pt --source " + imgPath);
+            Process proc = Runtime.getRuntime().exec(condaPath+"\\activate.bat base && d: && cd " + pythonPath + "&& python detect.py --weights ./weights/best.pt --source " + imgPath);
 
             //print
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(), "gbk"));

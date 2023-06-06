@@ -8,11 +8,11 @@ spring:
             master:
 
                 #linux
-                url: jdbc:mysql://81.71.138.29:28019/ruoyi_insect?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-                password: hzau123
+                #url: jdbc:mysql://81.71.138.29:28019/ruoyi_insect?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                #password: hzau123
                 #windows
-                #url: jdbc:mysql://localhost:3306/ruoyi_insect?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-                #password: helloworld1.cpp
+                url: jdbc:mysql://localhost:3306/ruoyi_insect?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                password: helloworld1.cpp
                 username: root
             # 从库数据源
             slave:
