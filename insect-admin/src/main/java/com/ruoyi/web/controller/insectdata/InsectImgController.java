@@ -25,6 +25,7 @@ import java.util.List;
  * @date 2021-08-29
  */
 @Api(tags = "昆虫图片信息")
+@CrossOrigin
 @RestController
 @RequestMapping("/insectdata/insectImg")
 public class InsectImgController extends BaseController
@@ -114,7 +115,7 @@ public class InsectImgController extends BaseController
         int i = 0;
         for (AjaxResult ajax : ajaxResults) {
             ajax.put("insectId", insectId);
-            imgs[i] = "http://81.71.138.29:59999" + ajax.get("fileName");
+            imgs[i] = "https://4138y554s5.goho.co" + ajax.get("fileName");
             i++;
         }
         insectImgService.batchInsertImg(insectId, imgs);

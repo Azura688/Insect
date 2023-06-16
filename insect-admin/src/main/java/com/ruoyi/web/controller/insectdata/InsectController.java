@@ -23,6 +23,7 @@ import java.util.List;
  * @date 2021-08-29
  */
 @Api(tags = "昆虫信息")
+@CrossOrigin
 @RestController
 @RequestMapping("/insectdata/insect")
 public class InsectController extends BaseController

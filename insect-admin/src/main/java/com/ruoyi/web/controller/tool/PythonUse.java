@@ -47,6 +47,7 @@ public class PythonUse {
      * @return
      */
     public HashMap<String, Integer> PythonModel(CommonController commonController, DataMapper dataMapper, Integer dataId){
+        System.out.println(condaPath);
         condaPath =condaPath.replace("\\","\\\\");
         System.out.println(condaPath);
         pythonPath =pythonPath.replace("\\","\\\\");
@@ -57,7 +58,8 @@ public class PythonUse {
         String imgPath = data.getOriginalPicture();
         System.out.println(imgPath);
         try {
-            Process proc = Runtime.getRuntime().exec(condaPath+"\\activate.bat base && d: && cd " + pythonPath + "&& python detect.py --weights ./weights/best.pt --source " + imgPath);
+            Process proc = Runtime.getRuntime().exec(condaPath+"\\activate.bat base && d: && cd " + pythonPath + "&& python detect.py --weights ./weights/best_1000.pt --source " + imgPath);
+            //Process proc = Runtime.getRuntime().exec(condaPath+"\\activate.bat insect && d: && cd " + pythonPath + "&& python detect.py --weights ./weights/best.pt --source " + imgPath);
 
             //print
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(), "gbk"));
@@ -104,7 +106,7 @@ public class PythonUse {
 
             AjaxResult ajaxResult = commonController.uploadFile(file);
         System.out.println(ajaxResult);
-            String img = (String) ajaxResult.get("url");
+            String img = "https://7039vz8591.imdo.co" + (String) ajaxResult.get("fileName");
             //String img = "http://81.71.138.29:59999" + ajaxResult.get("fileName");
         System.out.println(img);
             data.setTagPicture(img);
@@ -115,6 +117,13 @@ public class PythonUse {
             String labelPath = path + "\\labels\\";
             System.out.println(labelPath);
             File directory2 = new File(labelPath);
+
+            //判断labelPath文件夹（也就是directory2）里面是否有文件
+            File[] fileLists = directory2.listFiles();
+            if(fileLists.length == 0){//没有文件，说明没有识别结果
+                return map;
+            }
+
             String file2 = directory2.list((dir, name) -> name.toLowerCase().endsWith(".txt"))[0];
             System.out.println(file2);
             String txtPath = labelPath + file2;

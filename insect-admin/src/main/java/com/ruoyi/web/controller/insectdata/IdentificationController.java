@@ -27,6 +27,7 @@ import java.util.List;
  * @date 2021-08-29
  */
 @Api(tags = "识别结果信息")
+@CrossOrigin
 @RestController
 @RequestMapping("/insectdata/identification")
 public class IdentificationController extends BaseController

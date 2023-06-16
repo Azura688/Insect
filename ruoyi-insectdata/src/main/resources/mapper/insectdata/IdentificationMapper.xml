@@ -17,7 +17,7 @@
         <result property="insect.parentId"    column="parent_id"    />
         <result property="insect.insectName" column="insect_name"/>
         <result property="number" column="number"/>
-        <result property="markerBox"    column="marker_box"    />
+        <result property="data.tagPicture"    column="tag_picture"    />
     </resultMap>
 
     <sql id="selectIdentificationVo">
@@ -47,9 +47,9 @@
     </select>
 
     <select id="selectIdentificationDetail" parameterType="Integer" resultMap="DataInsectResult">
-        select id.data_id data_id, i.insect_name insect_name, id.number number, i.insect_id insect_id, i.parent_id parent_id, id.marker_box marker_box
-        from insect i, identification id
-        where i.insect_id = id.insect_id and i.type = 2 and id.data_id = #{dataId}
+        select id.data_id data_id, i.insect_name insect_name, id.number number, i.insect_id insect_id, i.parent_id parent_id, d.tag_picture tag_picture
+        from insect i, identification id, data d
+        where i.insect_id = id.insect_id and i.type = 2  and id.data_id = d.data_id and id.data_id = #{dataId}
     </select>
 
     <insert id="insertIdentification" parameterType="Identification">
@@ -93,5 +93,10 @@
         delete from identification
         where data_id = #{dataId} and insect_id = #{insectId}
     </delete>
+
+    <select id="hasIdentification" parameterType="Integer" resultType="int">
+        select count(*) from identification
+        where data_id = #{dataId} and insect_id = #{insectId}
+    </select>
 
 </mapper>

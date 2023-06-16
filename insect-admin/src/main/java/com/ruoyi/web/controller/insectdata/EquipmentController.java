@@ -23,6 +23,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * @date 2021-10-21
  */
 @Api(tags = "设备信息")
+@CrossOrigin
 @RestController
 @RequestMapping("/insectdata/equipment")
 public class EquipmentController extends BaseController

@@ -1,9 +1,10 @@
 package com.ruoyi.insectdata.mapper;
 
-import java.util.List;
-import java.util.Date;
 import com.ruoyi.insectdata.domain.Identification;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * 识别结果Mapper接口
@@ -87,5 +88,9 @@ public interface IdentificationMapper
      */
     public int deleteIdentificationByDataIdAndInsectId(@Param("dataId") Integer dataId, @Param("insectId") Integer insectId);
 
+    /**
+     * 是否存在图片与昆虫对应的识别结果
+     */
+    public int hasIdentification(@Param("dataId") Integer dataId, @Param("insectId") Integer insectId);
 
 }

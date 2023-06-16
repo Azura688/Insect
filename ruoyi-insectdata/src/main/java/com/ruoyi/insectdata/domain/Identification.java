@@ -33,6 +33,8 @@ public class Identification extends BaseEntity
 
     private Insect insect;
 
+    private Data data;
+
     public Insect getInsect(){
         return insect;
     }
@@ -86,5 +88,13 @@ public class Identification extends BaseEntity
             .append("number", getNumber())
             .append("markerBox", getMarkerBox())
             .toString();
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
+
+    public Data getData() {
+        return data;
     }
 }

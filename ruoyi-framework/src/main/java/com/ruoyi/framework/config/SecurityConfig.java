@@ -115,7 +115,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .antMatchers("/*/api-docs").anonymous()
                 .antMatchers("/druid/**").anonymous()
                 //.antMatchers("/insectdata/data/**").anonymous()
-                .antMatchers("/pythonUse/**").anonymous()
+                //.antMatchers("/pythonUse/**").anonymous()
                 .antMatchers("/common/upload").anonymous()
                 //.antMatchers("/common/**/**").anonymous()
                 // 除上面外的所有请求全部需要鉴权认证

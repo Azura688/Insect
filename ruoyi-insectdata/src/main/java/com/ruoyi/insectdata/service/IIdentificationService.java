@@ -1,9 +1,10 @@
 package com.ruoyi.insectdata.service;
 
-import java.util.List;
+import com.ruoyi.insectdata.domain.Identification;
+
 import java.text.ParseException;
 import java.util.Date;
-import com.ruoyi.insectdata.domain.Identification;
+import java.util.List;
 
 /**
  * 识别结果Service接口
@@ -101,4 +102,10 @@ public interface IIdentificationService
      * @return 结果
      */
     public int deleteIdentificationByDataIdAndInsectId(Integer dataId, Integer insectId);
+
+    /**
+     * 是否存在图片与昆虫对应的识别结果
+     */
+    public boolean hasIdentification(Integer dataId, Integer insectId);
+
 }

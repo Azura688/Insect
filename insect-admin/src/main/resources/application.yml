@@ -7,7 +7,7 @@ ruoyi:
   # 版权年份
   copyrightYear: 2022
   # 实例演示开关
-  demoEnabled: true
+  demoEnabled: false
   # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
   profile: D://web//insect//uploadPath
   #profile: /insect/ruoyi-insect/uploadPath
@@ -72,7 +72,7 @@ spring:
     password: 123456
     #password: hzau123
     # 连接超时时间
-    timeout: 10s
+    timeout: 100s
     lettuce:
       pool:
         # 连接池中的最小空闲连接

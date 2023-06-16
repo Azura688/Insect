@@ -29,6 +29,7 @@ import java.util.List;
  * @date 2021-08-29
  */
 @Api(tags = "数据信息")
+@CrossOrigin
 @RestController
 @RequestMapping("/insectdata/data")
 public class DataController extends BaseController
@@ -124,7 +125,7 @@ public class DataController extends BaseController
         int i = 0;
         for (AjaxResult ajax : ajaxResults) {
             ajax.put("equipmentId", equipmentId);
-            originalPictures[i] = "http://81.71.138.29:59999" + ajax.get("fileName");
+            originalPictures[i] = "https://7039vz8591.imdo.co" + ajax.get("fileName");
             i++;
         }
         dataService.batchData(originalPictures,equipmentId,photoTime,photoArea);

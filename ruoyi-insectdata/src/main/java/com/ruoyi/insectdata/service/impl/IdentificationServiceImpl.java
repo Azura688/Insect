@@ -1,18 +1,19 @@
 package com.ruoyi.insectdata.service.impl;
 
-import java.util.List;
-import java.util.Arrays;
-import java.util.Date;
-
-//import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.insectdata.domain.Identification;
+import com.ruoyi.insectdata.mapper.IdentificationMapper;
+import com.ruoyi.insectdata.service.IIdentificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.insectdata.mapper.IdentificationMapper;
-import com.ruoyi.insectdata.domain.Identification;
-import com.ruoyi.insectdata.service.IIdentificationService;
+
 import java.text.ParseException;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import static com.ruoyi.insectdata.utils.DateUtils.*;
+
+//import com.ruoyi.common.utils.DateUtils;
 
 /**
  * 识别结果Service业务层处理
@@ -179,5 +180,11 @@ public class IdentificationServiceImpl implements IIdentificationService
     @Override
     public int deleteIdentificationByDataIdAndInsectId(Integer dataId, Integer insectId) {
         return identificationMapper.deleteIdentificationByDataIdAndInsectId(dataId,insectId);
+    }
+
+    @Override
+    public boolean hasIdentification(Integer dataId, Integer insectId) {
+        int result = identificationMapper.hasIdentification(dataId, insectId);
+        return result > 0 ? true : false;
     }
 }
