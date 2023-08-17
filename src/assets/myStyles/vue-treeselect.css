@@ -1,0 +1,24 @@
+.vue-treeselect--open-below .vue-treeselect__menu{
+  min-height: 55vh !important;
+}
+.vue-treeselect__label {
+  font-weight: normal;
+}
+/* .vue-treeselect__list-item .vue-treeselect__indent-level-0 .vue-treeselect__option .vue-treeselect__label-container .vue-treeselect__label{
+  font-size: 40px;
+} */
+.vue-treeselect__indent-level-0  .vue-treeselect__label{
+  font-size: 18px;
+}
+.vue-treeselect__indent-level-1  .vue-treeselect__label{
+  font-size: 16px;
+}
+.vue-treeselect__list-item .vue-treeselect__indent-level-1 .vue-treeselect__option  .vue-treeselect__label-container .vue-treeselect__label{
+  font-weight: normal;
+  /* font-size: 16px; */
+}
+.vue-treeselect__list-item .vue-treeselect__indent-level-2 .vue-treeselect__option .vue-treeselect__label-container .vue-treeselect__label{
+  font-weight: normal;
+  font-size: 14px;
+}
+/* .vue-treeselect__option .vue-treeselect__option--disabled .vue-treeselect__option--highlight*/
