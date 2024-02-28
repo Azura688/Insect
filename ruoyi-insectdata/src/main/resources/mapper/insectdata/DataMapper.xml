@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.insectdata.mapper.DataMapper">
-    
+
     <resultMap type="Data" id="DataResult">
         <result property="dataId"    column="data_id"    />
         <result property="originalPicture"    column="original_picture"    />
@@ -16,30 +16,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
         <result property="updateTime"    column="update_time"    />
+        <result property="bugtype"    column="bugtype"    />
     </resultMap>
 
     <sql id="selectDataVo">
-        select data_id, original_picture, marker_box, tag_picture, photo_time, photo_area, equipment_id, create_by, create_time, update_by, update_time from data
+        select data_id, original_picture, marker_box, tag_picture, photo_time, photo_area, equipment_id, create_by, create_time, update_by, update_time,bugtype from data
     </sql>
 
     <select id="selectDataList" parameterType="Data" resultMap="DataResult">
         <include refid="selectDataVo"/>
-        <where>  
+        <where>
             <if test="originalPicture != null  and originalPicture != ''"> and original_picture = #{originalPicture}</if>
             <if test="markerBox != null  and markerBox != ''"> and marker_box = #{markerBox}</if>
             <if test="tagPicture != null  and tagPicture != ''"> and tag_picture = #{tagPicture}</if>
             <if test="photoTime != null "> and photo_time = #{photoTime}</if>
             <if test="photoArea != null  and photoArea != ''"> and photo_area like concat('%', #{photoArea}, '%')</if>
             <if test="equipmentId != null "> and equipment_id = #{equipmentId}</if>
+            <if test="bugtype != null "> and bugtype = #{bugtype}</if>
         </where>
         order by photo_time desc
     </select>
-    
+
+    <select id="selectDataIDByoriginalPictures" parameterType="String" resultType="java.lang.Integer">
+        select data_id from data
+        <where>
+        <foreach item="originalPicture" collection="array" separator="or">
+            original_picture = #{originalPicture}
+        </foreach>
+        </where>
+    </select>
+
     <select id="selectDataByDataId" parameterType="Integer" resultMap="DataResult">
         <include refid="selectDataVo"/>
         where data_id = #{dataId}
     </select>
-        
+
     <insert id="insertData" parameterType="Data" useGeneratedKeys="true" keyProperty="dataId">
         insert into data
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -53,6 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="createTime != null">create_time,</if>
             <if test="updateBy != null">update_by,</if>
             <if test="updateTime != null">update_time,</if>
+            <if test="bugtype != null">bugtype,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="originalPicture != null and originalPicture != ''">#{originalPicture},</if>
@@ -65,13 +77,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="createTime != null">#{createTime},</if>
             <if test="updateBy != null">#{updateBy},</if>
             <if test="updateTime != null">#{updateTime},</if>
+            <if test="bugtype != null">bugtype,</if>
          </trim>
     </insert>
 
     <insert id="batchData">
-        insert into data(original_picture, marker_box, tag_picture, photo_time, photo_area, equipment_id, create_by, create_time, update_by, update_time) values
+        insert into data(original_picture, marker_box, tag_picture, photo_time, photo_area, equipment_id, create_by, create_time, update_by, update_time,bugtype) values
         <foreach item="item" index="index" collection="list" separator=",">
-            (#{item.originalPicture}, #{item.markerBox}, #{item.tagPicture}, #{item.photoTime}, #{item.photoArea}, #{item.equipmentId}, #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime})
+            (#{item.originalPicture}, #{item.markerBox}, #{item.tagPicture}, #{item.photoTime}, #{item.photoArea}, #{item.equipmentId}, #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime},#{item.bugtype})
         </foreach>
     </insert>
 
@@ -88,6 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="bugtype != null">bugtype = #{bugtype},</if>
         </trim>
         where data_id = #{dataId}
     </update>
@@ -97,7 +111,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteDataByDataIds" parameterType="String">
-        delete from data where data_id in 
+        delete from data where data_id in
         <foreach item="dataId" collection="array" open="(" separator="," close=")">
             #{dataId}
         </foreach>

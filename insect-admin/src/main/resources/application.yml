@@ -10,7 +10,7 @@ ruoyi:
   demoEnabled: false
   # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
   profile: D://web//insect//uploadPath
-  #profile: /insect/ruoyi-insect/uploadPath
+#  profile: D://CS//Insect//uploadPath
   # 获取ip地址开关
   addressEnabled: false
   # 验证码类型 math 数组计算 char 字符验证
@@ -46,7 +46,7 @@ spring:
   messages:
     # 国际化资源文件路径
     basename: i18n/messages
-  profiles: 
+  profiles:
     active: druid
   # 文件上传
   servlet:
@@ -70,7 +70,8 @@ spring:
     database: 0
     # 密码
     password: 123456
-    #password: hzau123
+#    password: hzau123
+#    password:
     # 连接超时时间
     timeout: 100s
     lettuce:
@@ -92,7 +93,7 @@ token:
     secret: abcdefghijklmnopqrstuvwxyz
     # 令牌有效期（默认30分钟）
     expireTime: 30
-  
+
 # MyBatis配置
 mybatis:
     # 搜索指定包别名
@@ -103,10 +104,10 @@ mybatis:
     configLocation: classpath:mybatis/mybatis-config.xml
 
 # PageHelper分页插件
-pagehelper: 
+pagehelper:
   helperDialect: mysql
   supportMethodsArguments: true
-  params: count=countSql 
+  params: count=countSql
 
 # Swagger配置
 swagger:
@@ -117,7 +118,7 @@ swagger:
   pathMapping: /dev-api
 
 # 防止XSS攻击
-xss: 
+xss:
   # 过滤开关
   enabled: true
   # 排除链接（多个用逗号分隔）

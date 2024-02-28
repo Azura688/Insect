@@ -14,6 +14,7 @@ import com.ruoyi.insectdata.service.IIdentificationService;
 import com.ruoyi.web.controller.common.CommonController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ import java.util.List;
 
 /**
  * 识别数据Controller
- * 
+ *
  * @author zmh
  * @date 2021-08-29
  */
@@ -46,6 +47,8 @@ public class DataController extends BaseController
     @Autowired
     private CommonController commonController;
 
+    @Autowired
+    private PythonUseController pythonUseController;
     /**
      * 查询识别数据列表
      */
@@ -111,14 +114,14 @@ public class DataController extends BaseController
      */
     @ApiOperation("批量增加数据图片")
     @PostMapping("/batchData")
-    public AjaxResult batchData(String[] originalPictures, Integer equipmentId, Date photoTime, String photoArea){
-        return toAjax(dataService.batchData(originalPictures,equipmentId,photoTime,photoArea));
+    public AjaxResult batchData(String[] originalPictures, Integer equipmentId, Date photoTime, String photoArea,String bugtype){
+        return toAjax(dataService.batchData(originalPictures,equipmentId,photoTime,photoArea,bugtype));
     }
 
     @ApiOperation("批量上传和添加数据图片")
     @PostMapping("/upLoadAndInsertData")
     @Log(title = "批量上传和添加数据图片", businessType = BusinessType.INSERT)
-    public AjaxResult[] upLoadAndInsertImg(Integer equipmentId, Date photoTime, String photoArea, @RequestParam("file") MultipartFile[] files) throws Exception {
+    public AjaxResult[] upLoadAndInsertImg(Integer equipmentId, Date photoTime, String photoArea,String bugtype, @RequestParam("file") MultipartFile[] files) throws Exception {
         int num = files.length;
         AjaxResult[] ajaxResults = commonController.batchUploadFile(files);
         String[] originalPictures = new String[num];
@@ -128,7 +131,33 @@ public class DataController extends BaseController
             originalPictures[i] = "https://7039vz8591.imdo.co" + ajax.get("fileName");
             i++;
         }
-        dataService.batchData(originalPictures,equipmentId,photoTime,photoArea);
+        dataService.batchData(originalPictures,equipmentId,photoTime,photoArea,bugtype);
+        return ajaxResults;
+    }
+    @ApiOperation("机器自动批量上传和添加数据图片并且进行识别")
+    @PostMapping("/upLoadImgAndidentify")
+    @Log(title = "机器自动批量上传和添加数据图片并且进行识别", businessType = BusinessType.INSERT)
+    public AjaxResult[] upLoadImgAndidentify(Integer equipmentId, Date photoTime, String photoArea,String bugtype, @RequestParam("file") MultipartFile[] files) throws Exception {
+        int num = files.length;
+        AjaxResult[] ajaxResults = commonController.batchUploadFile(files);
+        String[] originalPictures = new String[num];
+        int i = 0;
+        for (AjaxResult ajax : ajaxResults) {
+            ajax.put("equipmentId", equipmentId);
+            originalPictures[i] = "https://7039vz8591.imdo.co" + ajax.get("fileName");
+            i++;
+        }
+        dataService.batchData(originalPictures,equipmentId,photoTime,photoArea,bugtype);
+        Integer[] dataids=dataService.selectDataIDs(originalPictures);
+        for(int x:dataids) {
+            if (bugtype.equals('1'))
+            {
+                pythonUseController.BigpythonModel(x);
+            }
+            else {
+                pythonUseController.SmallpythonModel(x);
+            }
+        }
         return ajaxResults;
     }
 

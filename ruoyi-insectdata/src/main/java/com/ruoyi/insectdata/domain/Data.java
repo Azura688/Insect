@@ -1,15 +1,16 @@
 package com.ruoyi.insectdata.domain;
 
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import java.util.Date;
 
 /**
  * 数据对象 data
- * 
+ *
  * @author zmh
  * @date 2021-11-22
  */
@@ -45,66 +46,78 @@ public class Data extends BaseEntity
     @Excel(name = "设备号")
     private Integer equipmentId;
 
-    public void setDataId(Integer dataId) 
+    /** 虫子种类 */
+    @Excel(name = "虫子种类")
+    private String bugtype;
+
+    public String getBugtype() {
+        return bugtype;
+    }
+
+    public void setBugtype(String bugtype) {
+        this.bugtype = bugtype;
+    }
+
+    public void setDataId(Integer dataId)
     {
         this.dataId = dataId;
     }
 
-    public Integer getDataId() 
+    public Integer getDataId()
     {
         return dataId;
     }
-    public void setOriginalPicture(String originalPicture) 
+    public void setOriginalPicture(String originalPicture)
     {
         this.originalPicture = originalPicture;
     }
 
-    public String getOriginalPicture() 
+    public String getOriginalPicture()
     {
         return originalPicture;
     }
-    public void setMarkerBox(String markerBox) 
+    public void setMarkerBox(String markerBox)
     {
         this.markerBox = markerBox;
     }
 
-    public String getMarkerBox() 
+    public String getMarkerBox()
     {
         return markerBox;
     }
-    public void setTagPicture(String tagPicture) 
+    public void setTagPicture(String tagPicture)
     {
         this.tagPicture = tagPicture;
     }
 
-    public String getTagPicture() 
+    public String getTagPicture()
     {
         return tagPicture;
     }
-    public void setPhotoTime(Date photoTime) 
+    public void setPhotoTime(Date photoTime)
     {
         this.photoTime = photoTime;
     }
 
-    public Date getPhotoTime() 
+    public Date getPhotoTime()
     {
         return photoTime;
     }
-    public void setPhotoArea(String photoArea) 
+    public void setPhotoArea(String photoArea)
     {
         this.photoArea = photoArea;
     }
 
-    public String getPhotoArea() 
+    public String getPhotoArea()
     {
         return photoArea;
     }
-    public void setEquipmentId(Integer equipmentId) 
+    public void setEquipmentId(Integer equipmentId)
     {
         this.equipmentId = equipmentId;
     }
 
-    public Integer getEquipmentId() 
+    public Integer getEquipmentId()
     {
         return equipmentId;
     }
@@ -123,6 +136,7 @@ public class Data extends BaseEntity
             .append("createTime", getCreateTime())
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
+            .append("bugtype",getBugtype())
             .toString();
     }
 }

@@ -7,7 +7,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * 设备对象 equipment
- * 
+ *
  * @author zmh
  * @date 2021-10-21
  */
@@ -58,102 +58,114 @@ public class Equipment extends BaseEntity
     @Excel(name = "详细地址")
     private String detail;
 
-    public void setId(Integer id) 
+    /** 虫子种类 */
+    @Excel(name = "虫子种类")
+    private String bugtype;
+
+    public String getBugtype() {
+        return bugtype;
+    }
+
+    public void setBugtype(String bugtype) {
+        this.bugtype = bugtype;
+    }
+
+    public void setId(Integer id)
     {
         this.id = id;
     }
 
-    public Integer getId() 
+    public Integer getId()
     {
         return id;
     }
-    public void setLongitude(String longitude) 
+    public void setLongitude(String longitude)
     {
         this.longitude = longitude;
     }
 
-    public String getLongitude() 
+    public String getLongitude()
     {
         return longitude;
     }
-    public void setLatitude(String latitude) 
+    public void setLatitude(String latitude)
     {
         this.latitude = latitude;
     }
 
-    public String getLatitude() 
+    public String getLatitude()
     {
         return latitude;
     }
-    public void setWorkStatus(String workStatus) 
+    public void setWorkStatus(String workStatus)
     {
         this.workStatus = workStatus;
     }
 
-    public String getWorkStatus() 
+    public String getWorkStatus()
     {
         return workStatus;
     }
-    public void setWeathershieldStatus(String weathershieldStatus) 
+    public void setWeathershieldStatus(String weathershieldStatus)
     {
         this.weathershieldStatus = weathershieldStatus;
     }
 
-    public String getWeathershieldStatus() 
+    public String getWeathershieldStatus()
     {
         return weathershieldStatus;
     }
-    public void setElectricity(String electricity) 
+    public void setElectricity(String electricity)
     {
         this.electricity = electricity;
     }
 
-    public String getElectricity() 
+    public String getElectricity()
     {
         return electricity;
     }
-    public void setWeather(String weather) 
+    public void setWeather(String weather)
     {
         this.weather = weather;
     }
 
-    public String getWeather() 
+    public String getWeather()
     {
         return weather;
     }
-    public void setProvince(String province) 
+    public void setProvince(String province)
     {
         this.province = province;
     }
 
-    public String getProvince() 
+    public String getProvince()
     {
         return province;
     }
-    public void setCity(String city) 
+    public void setCity(String city)
     {
         this.city = city;
     }
 
-    public String getCity() 
+    public String getCity()
     {
         return city;
     }
-    public void setCounty(String county) 
+    public void setCounty(String county)
     {
         this.county = county;
     }
 
-    public String getCounty() 
+    public String getCounty()
     {
         return county;
     }
-    public void setDetail(String detail) 
+    public void setDetail(String detail)
     {
         this.detail = detail;
     }
 
-    public String getDetail() 
+    public String getDetail()
     {
         return detail;
     }
@@ -176,6 +188,7 @@ public class Equipment extends BaseEntity
             .append("city", getCity())
             .append("county", getCounty())
             .append("detail", getDetail())
+            .append("bugtype",getBugtype())
             .toString();
     }
 }

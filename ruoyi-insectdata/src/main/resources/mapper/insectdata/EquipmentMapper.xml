@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.insectdata.mapper.EquipmentMapper">
-    
+
     <resultMap type="Equipment" id="EquipmentResult">
         <result property="id"    column="id"    />
         <result property="longitude"    column="longitude"    />
@@ -20,15 +20,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="city"    column="city"    />
         <result property="county"    column="county"    />
         <result property="detail"    column="detail"    />
+        <result property="bugtype"    column="bugtype"    />
     </resultMap>
 
     <sql id="selectEquipmentVo">
-        select id, longitude, latitude, work_status, weathershield_status, electricity, weather, create_by, create_time, update_by, update_time, province, city, county, detail from equipment
+        select id, longitude, latitude, work_status, weathershield_status, electricity, weather, create_by, create_time, update_by, update_time, province, city, county, detail,bugtype from equipment
     </sql>
 
     <select id="selectEquipmentList" parameterType="Equipment" resultMap="EquipmentResult">
         <include refid="selectEquipmentVo"/>
-        <where>  
+        <where>
             <if test="longitude != null  and longitude != ''"> and longitude = #{longitude}</if>
             <if test="latitude != null  and latitude != ''"> and latitude = #{latitude}</if>
             <if test="workStatus != null  and workStatus != ''"> and work_status = #{workStatus}</if>
@@ -39,14 +40,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="city != null  and city != ''"> and city = #{city}</if>
             <if test="county != null  and county != ''"> and county = #{county}</if>
             <if test="detail != null  and detail != ''"> and detail = #{detail}</if>
+            <if test="bugtype != null  and bugtype != ''"> and bugtype = #{bugtype}</if>
         </where>
     </select>
-    
+
     <select id="selectEquipmentById" parameterType="Integer" resultMap="EquipmentResult">
         <include refid="selectEquipmentVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertEquipment" parameterType="Equipment" useGeneratedKeys="true" keyProperty="id">
         insert into equipment
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -64,6 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="city != null">city,</if>
             <if test="county != null">county,</if>
             <if test="detail != null">detail,</if>
+            <if test="bugtype != null">bugtype,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="longitude != null">#{longitude},</if>
@@ -80,6 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="city != null">#{city},</if>
             <if test="county != null">#{county},</if>
             <if test="detail != null">#{detail},</if>
+            <if test="bugtype != null">#{bugtype},</if>
          </trim>
     </insert>
 
@@ -100,6 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="city != null">city = #{city},</if>
             <if test="county != null">county = #{county},</if>
             <if test="detail != null">detail = #{detail},</if>
+            <if test="bugtype != null">bugtype = #{bugtype},</if>
         </trim>
         where id = #{id}
     </update>
@@ -109,7 +114,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteEquipmentByIds" parameterType="String">
-        delete from equipment where id in 
+        delete from equipment where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

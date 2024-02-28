@@ -1,20 +1,21 @@
 package com.ruoyi.insectdata.service;
 
+import com.ruoyi.insectdata.domain.Data;
+
 import java.util.Date;
 import java.util.List;
-import com.ruoyi.insectdata.domain.Data;
 
 /**
  * 识别数据Service接口
- * 
+ *
  * @author zmh
  * @date 2021-08-29
  */
-public interface IDataService 
+public interface IDataService
 {
     /**
      * 查询识别数据
-     * 
+     *
      * @param dataId 识别数据主键
      * @return 识别数据
      */
@@ -22,15 +23,22 @@ public interface IDataService
 
     /**
      * 查询识别数据列表
-     * 
+     *
      * @param data 识别数据
      * @return 识别数据集合
      */
     public List<Data> selectDataList(Data data);
 
     /**
+     * 查询识别数据id列表
+     *
+     * @param originalPictures
+     * @return 识别数据集合
+     */
+    public Integer[] selectDataIDs(String[] originalPictures);
+    /**
      * 新增识别数据
-     * 
+     *
      * @param data 识别数据
      * @return 结果
      */
@@ -45,11 +53,11 @@ public interface IDataService
      * @param photoArea 拍摄地点
      * @return 结果
      */
-    public int batchData(String[] originalPictures, Integer equipmentId, Date photoTime, String photoArea);
+    public int batchData(String[] originalPictures, Integer equipmentId, Date photoTime, String photoArea,String bugtype);
 
     /**
      * 修改识别数据
-     * 
+     *
      * @param data 识别数据
      * @return 结果
      */
@@ -57,7 +65,7 @@ public interface IDataService
 
     /**
      * 批量删除识别数据
-     * 
+     *
      * @param dataIds 需要删除的识别数据主键集合
      * @return 结果
      */
@@ -65,7 +73,7 @@ public interface IDataService
 
     /**
      * 删除识别数据信息
-     * 
+     *
      * @param dataId 识别数据主键
      * @return 结果
      */

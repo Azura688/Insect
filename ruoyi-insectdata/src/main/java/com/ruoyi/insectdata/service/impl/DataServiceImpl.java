@@ -1,30 +1,31 @@
 package com.ruoyi.insectdata.service.impl;
 
+import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.insectdata.domain.Data;
+import com.ruoyi.insectdata.mapper.DataMapper;
+import com.ruoyi.insectdata.service.IDataService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import com.ruoyi.common.utils.DateUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.ruoyi.insectdata.mapper.DataMapper;
-import com.ruoyi.insectdata.domain.Data;
-import com.ruoyi.insectdata.service.IDataService;
 
 /**
  * 识别数据Service业务层处理
- * 
+ *
  * @author zmh
  * @date 2021-08-29
  */
 @Service
-public class DataServiceImpl implements IDataService 
+public class DataServiceImpl implements IDataService
 {
     @Autowired
     private DataMapper dataMapper;
 
     /**
      * 查询识别数据
-     * 
+     *
      * @param dataId 识别数据主键
      * @return 识别数据
      */
@@ -36,7 +37,7 @@ public class DataServiceImpl implements IDataService
 
     /**
      * 查询识别数据列表
-     * 
+     *
      * @param data 识别数据
      * @return 识别数据
      */
@@ -46,9 +47,22 @@ public class DataServiceImpl implements IDataService
         return dataMapper.selectDataList(data);
     }
 
+
+    /**
+     * 查询识别数据id数组
+     *
+     * @param  originalPictures
+     * @return 识别数据
+     */
+    @Override
+    public Integer[] selectDataIDs(String[] originalPictures) {
+        return dataMapper.selectDataIDByoriginalPictures(originalPictures);
+    }
+
+
     /**
      * 新增识别数据
-     * 
+     *
      * @param data 识别数据
      * @return 结果
      */
@@ -69,7 +83,7 @@ public class DataServiceImpl implements IDataService
      * @return 结果
      */
     @Override
-    public int batchData(String[] originalPictures, Integer equipmentId, Date photoTime, String photoArea) {
+    public int batchData(String[] originalPictures, Integer equipmentId, Date photoTime, String photoArea,String bugtype) {
         List<Data> list = new ArrayList<Data>();
         for (String img : originalPictures){
             Data data = new Data();
@@ -78,6 +92,7 @@ public class DataServiceImpl implements IDataService
             data.setPhotoArea(photoArea);
             data.setCreateTime(DateUtils.getNowDate());
             data.setOriginalPicture(img);
+            data.setBugtype(bugtype);
             list.add(data);
         }
         if (list.size() > 0) {
@@ -89,7 +104,7 @@ public class DataServiceImpl implements IDataService
 
     /**
      * 修改识别数据
-     * 
+     *
      * @param data 识别数据
      * @return 结果
      */
@@ -102,7 +117,7 @@ public class DataServiceImpl implements IDataService
 
     /**
      * 批量删除识别数据
-     * 
+     *
      * @param dataIds 需要删除的识别数据主键
      * @return 结果
      */
@@ -114,7 +129,7 @@ public class DataServiceImpl implements IDataService
 
     /**
      * 删除识别数据信息
-     * 
+     *
      * @param dataId 识别数据主键
      * @return 结果
      */

@@ -1,11 +1,10 @@
 package com.ruoyi.insectdata.mapper;
 
+import com.ruoyi.insectdata.domain.Data;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.Date;
 import java.util.List;
-import com.ruoyi.insectdata.domain.Data;
-import com.ruoyi.insectdata.domain.InsectImg;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.security.core.parameters.P;
 
 /**
  * 识别数据Mapper接口
@@ -46,6 +45,15 @@ public interface DataMapper
      * @return 结果
      */
     public int batchData(List<Data> dataList);
+
+    /**
+     * 批量查询数据图片id
+     *
+     * @param originalPictures
+     * @return 结果
+     */
+    public Integer[] selectDataIDByoriginalPictures(String[] originalPictures);
+
 
     /**
      * 修改识别数据
