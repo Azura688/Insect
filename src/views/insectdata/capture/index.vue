@@ -11,7 +11,7 @@
               <div class="wrapper">
                 <img v-lazy="item.originalPicture" alt="" @click="showImg(index)">
               </div>
-              <p>{{item.dataId + "," + item.equipmentId + ","  + item.photoArea + ","  + item.photoTime}}</p>
+              <p>{{item.dataId + "," + item.equipmentId + ","  + item.photoArea + ","  + item.photoTime+","  + item.bugtype}}</p>
               <el-button icon="el-icon-delete" circle type="primary" @click="handleDelete(item.dataId)"></el-button>
               <el-button type="primary" @click="getDetail(item.dataId)">查看</el-button>
             </article>

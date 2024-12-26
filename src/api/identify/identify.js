@@ -68,9 +68,19 @@ export function DetailInsect(insectId) {
     })
 }
 
-export function DetailInsect_new(insectId){
+//调用小虫模型yolov
+export function DetailInsect_small(insectId){
     return request({
-        url: 'pythonUse/pythonModel/'+insectId,
+        url: 'pythonUse/SmallpythonModel/'+insectId,
+        method:'post',
+        
+    })
+}
+
+//调用大虫模型MaskRCNN
+export function DetailInsect_big(insectId){
+    return request({
+        url: 'pythonUse/BigpythonModel/'+insectId,
         method:'post',
         
     })

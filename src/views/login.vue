@@ -69,7 +69,7 @@ export default {
       cookiePassword: "",
       loginForm: {
         username: "admin",
-        password: "",
+        password: "Hzauinsect..",//密码先自动输入
         rememberMe: false,
         code: "",
         uuid: ""
@@ -85,7 +85,7 @@ export default {
       },
       loading: false,
       // 验证码开关
-      captchaOnOff: true,
+      captchaOnOff: true, 
       // 注册开关
       register: false,
       redirect: undefined

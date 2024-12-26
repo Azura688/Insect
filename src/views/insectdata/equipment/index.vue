@@ -96,7 +96,12 @@
       <el-table-column label="电量" align="center" prop="electricity"/>
       <el-table-column label="挡雨板状态" align="center" prop="weathershieldStatus">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.weathershieldStatus==='1'?'success':'danger'">{{ getShieldTag(scope.row.weathershieldStatus) }}</el-tag>
+          <el-tag :type="scope.row.weathershieldStatus==='1'?'success':'danger'">{{ getShieldTag(scope.row.weathershieldStatus)}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="拍摄昆虫种类" align="center" prop="bugtype">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.bugtype==='1'?'success':'danger'">{{ getBugTag(scope.row.bugtype)}}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="所在地气候" align="center" prop="weather"/>
@@ -172,6 +177,21 @@
           <el-col :span="12">
             <el-form-item label="设备电量:" prop="electricity" label-width="100px">
               <el-input-number v-model="form.electricity" :min="0" :max="100" placeholder="请输入设备电量" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+        <el-col :span="12">
+            <el-form-item label="拍摄昆虫种类:" prop="bugtype" label-width="122px">
+              <!-- <el-input v-model="form.weathershieldStatus" placeholder="请输入设备挡雨板状态" /> -->
+              <el-select v-model="form.bugtype" placeholder="请输入拍摄昆虫种类">
+                <el-option
+                  v-for="item in bugTypeOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -260,6 +280,7 @@ export default {
     return {
       workStatusOptions:[{value: "0", label: "停用"},{value: "1", label: "启用"}],
       weathershieldStatusOptions:[{value: "0", label: "停用"},{value: "1", label: "启用"}],
+      bugTypeOptions:[{value:"0",label:"小虫"},{value: "1", label: "大虫"}],
       // 遮罩层
       loading: false,
       // 导出遮罩层
@@ -303,7 +324,8 @@ export default {
         originalPictures: undefined,
         equipmentId: undefined,
         photoTime: undefined,
-        photoArea: undefined
+        photoArea: undefined,
+        bugtype:undefined
       },
       map: "",
       mk: "",
@@ -326,6 +348,9 @@ export default {
         ],
         addressDetail: [
           { required: true, message: "设备详细地址不能为空", trigger: "blur" }
+        ],
+        bugtype:[
+          {required: true, message: "拍摄昆虫种类不能为空", trigger: "blur"}
         ]
       },
       captureFormRules:{
@@ -354,6 +379,7 @@ export default {
         weather: undefined,
         weathershieldStatus: undefined,
         electricity: undefined,
+        bugtype:undefined
       },
       // workStatusOptions:[{value: "0",label: "停用"},{value: "1",label: "正常"}],
       // weathershieldStatusOptions:[{value: "0",label: "停用"},{value: "1",label: "正常"}],
@@ -400,6 +426,7 @@ export default {
           newEle.weather = ele.weather
           newEle.weathershieldStatus = ele.weathershieldStatus
           newEle.electricity = ele.electricity
+          newEle.bugtype=ele.bugtype
           this.equipmentList.push(newEle)
         })
       })
@@ -420,6 +447,14 @@ export default {
       }
       else{
         return '启用';
+      }
+    },
+    getBugTag(status){
+      if(status === "0"){
+        return '小虫';
+      }
+      else{
+        return '大虫';
       }
     },
     querySelected(data){
@@ -682,6 +717,7 @@ export default {
         weather: undefined,
         weathershieldStatus: undefined,
         electricity: undefined,
+        bugtype:undefined
       };
       this.submitFormatForm = {
         // id: undefined,
@@ -695,6 +731,7 @@ export default {
         weather: undefined,
         weathershieldStatus: undefined,
         electricity: undefined,
+        bugtype:undefined
       };
       this.resetForm("form");
     },
@@ -759,6 +796,7 @@ export default {
         this.form.weather = response.data.weather
         this.form.weathershieldStatus = response.data.weathershieldStatus
         this.form.electricity = response.data.electricity
+        this.form.bugtype=response.data.bugtype
         //console.log(this.form);
       })
       this.dropdownSelected = true
@@ -794,6 +832,7 @@ export default {
             this.submitFormatForm.weather = this.form.weather
             this.submitFormatForm.weathershieldStatus = this.form.weathershieldStatus
             this.submitFormatForm.electricity = this.form.electricity
+            this.submitFormatForm.bugtype = this.form.bugtype
             //console.log(this.submitFormatForm);
             //console.log(this.submitFormatForm.id);
             if (this.submitFormatForm.id != undefined) {
@@ -858,6 +897,7 @@ export default {
       this.captureForm.equipmentId = row.equipmentId
       // this.captureForm.photoArea  = row.equipmentLocation
       this.captureForm.photoArea = row.province + "-" + row.city + "-" + row.county
+      this.captureForm.bugtype=row.bugtype
       // this.captureForm.photoTime = dateUtil.format(new Date(), 'yyyy-MM-dd hh:mm:00')
       //console.log(this.captureForm.photoTime);
     },
@@ -884,6 +924,7 @@ export default {
             formData.append('equipmentId', this.captureForm.equipmentId)
             formData.append('photoArea', this.captureForm.photoArea)
             formData.append('photoTime', this.captureForm.photoTime)
+            formData.append('bugtype',this.captureForm.bugtype)
                            //自定义的接口也可以用ajax或者自己封装的接口
             //console.log(formData);
             for (var value of formData.values()) {
@@ -928,7 +969,8 @@ export default {
         originalPictures: undefined,
         equipmentId: undefined,
         photoTime: undefined,
-        photoArea: undefined
+        photoArea: undefined,
+        bugtype:undefined
       }
     },
     cancelUpload(){
